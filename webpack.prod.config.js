@@ -5,6 +5,9 @@ const webpack = require('webpack');
 
 module.exports = {
   devtool: 'cheap-module-source-map',
+  devServer: {
+    historyApiFallback: true,
+  },
   entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),

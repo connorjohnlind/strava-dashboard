@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Topbar = () => (
   <div>
-    <Link to="/">Home</Link> | <Link to="/settings">Settings</Link>
+    <Link to="/">Dashboard</Link> | <Link to="/logout">Logout</Link>
   </div>
 );
 
