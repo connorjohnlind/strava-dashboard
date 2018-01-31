@@ -1,7 +1,9 @@
 import React from 'react';
 
+import classes from './Settings.scss';
+
 const Settings = () => (
-  <div>
+  <div className={classes.Content}>
     Settings
   </div>
 );

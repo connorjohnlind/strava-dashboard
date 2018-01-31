@@ -1,7 +1,9 @@
 import React from 'react';
 
+import classes from './Home.scss';
+
 const Home = () => (
-  <div>
+  <div className={classes.Content}>
     Home
   </div>
 );
