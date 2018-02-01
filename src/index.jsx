@@ -7,9 +7,9 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
+import './index.scss';
 import App from './App';
 import reducer from './store/reducers/auth'; // NEED TO ADD MORE REDUCERS
-import './index.scss';
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

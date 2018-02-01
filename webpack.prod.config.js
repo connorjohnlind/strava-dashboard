@@ -2,6 +2,12 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+const extractSass = new ExtractTextPlugin({
+  filename: '[name].[contenthash].css',
+  disable: process.env.NODE_ENV === 'development',
+});
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -28,40 +34,30 @@ module.exports = {
       {
         test: /\.(scss|sass|css)$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'style-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
+        use: extractSass.extract({
+          use: [{
             loader: 'css-loader',
             options: {
               importLoaders: 1,
+              minimize: true,
               modules: true,
               localIdentName: '[name]__[local]__[hash:base64:5]',
-              sourceMap: true,
             },
-          },
-          {
+          }, {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss',
               plugins: () => [autoprefixer({
                 browsers: ['> 1%', 'last 2 versions'],
               })],
-              sourceMap: true,
             },
-          },
-          {
+          }, {
             loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-        ],
-      }, {
+          }],
+          fallback: 'style-loader',
+        }),
+      },
+      {
         test: /\.(png|jpe?g|gif)$/,
         loader: 'url-loader?limit=8000&name=images/[name].[ext]',
       },
@@ -73,6 +69,7 @@ module.exports = {
       filename: 'index.html',
       inject: 'body',
     }),
+    extractSass,
     new webpack.optimize.UglifyJsPlugin(),
   ],
 };

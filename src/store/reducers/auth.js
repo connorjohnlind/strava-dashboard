@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  accessToken: null,
+  accessToken: localStorage.getItem('accessToken'),
   error: false,
 };
 
