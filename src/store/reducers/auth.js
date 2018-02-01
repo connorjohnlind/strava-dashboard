@@ -1,26 +1,25 @@
 import * as actionTypes from '../actions/actionTypes';
+import updateObject from '../utility';
 
 const initialState = {
-  accessToken: null,
-  loading: true,
-  error: false,
+  accessToken: null, // existing localstorage token is checked in componentWillMount
+  loading: true, // since auth is always a redirect, set initial loading state to true
+  error: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_ACCESS_TOKEN_FAILED:
-      return {
-        ...state,
-        loading: false,
-        error: true,
-      };
-    case actionTypes.SET_ACCESS_TOKEN:
-      return {
-        ...state,
+    case actionTypes.AUTH_SET:
+      return updateObject(state, {
         accessToken: action.accessToken,
         loading: false,
-        error: false,
-      };
+        error: null,
+      });
+    case actionTypes.AUTH_FAIL:
+      return updateObject(state, {
+        loading: false,
+        error: action.error,
+      });
     default:
       return state;
   }

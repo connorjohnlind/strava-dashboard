@@ -1,5 +1,6 @@
-export const FETCH_ACCESS_TOKEN_FAILED = 'FETCH_ACCESS_TOKEN_FAILED';
-export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
+export const AUTH_START = 'AUTH_START';
+export const AUTH_SET = 'AUTH_SET';
+export const AUTH_FAIL = 'AUTH_FAIL';
 
 export const GET_ATHLETE = 'GET_ATHLETE';
 

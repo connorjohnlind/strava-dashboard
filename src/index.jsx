@@ -15,9 +15,7 @@ import activitiesReducer from './store/reducers/activities';
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
 const rootReducer = combineReducers({ authReducer, athletesReducer, activitiesReducer });
-
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 /* eslint-enable */
 

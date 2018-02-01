@@ -8,7 +8,7 @@ import classes from './Logout.scss';
 class Logout extends Component {
   componentDidMount() {
     localStorage.removeItem('accessToken');
-    this.props.onSetAccessToken(null);
+    this.props.onAuthRevoke();
   }
   render() {
     return (
@@ -20,11 +20,11 @@ class Logout extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onSetAccessToken: token => dispatch(actions.setAccessToken(token)),
+  onAuthRevoke: () => dispatch(actions.authSet(null)),
 });
 
 Logout.propTypes = {
-  onSetAccessToken: PropTypes.func.isRequired,
+  onAuthRevoke: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Logout);

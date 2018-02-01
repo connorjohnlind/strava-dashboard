@@ -1,5 +1,4 @@
 export {
-  fetchAccessToken,
-  fetchAccessTokenFailed,
-  setAccessToken,
+  auth,
+  authSet,
 } from './auth';
