@@ -4,7 +4,7 @@ import classes from './Logout.scss';
 
 class Logout extends Component {
   componentDidMount() {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('accessToken');
   }
   render() {
     return (

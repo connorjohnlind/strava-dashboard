@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import URLSearchParams from 'url-search-params';
 
+import * as actions from '../../store/actions/index';
 import classes from './Dashboard.scss';
 
 class Dashboard extends Component {
-  state = {
-    access_token: '',
-  }
   componentDidMount() {
     const query = new URLSearchParams(window.location.search);
     const code = query.get('code');
     if (code) {
-      axios.post(`https://www.strava.com/oauth/token?client_id=23058&client_secret=7acf3779503a1e2f856a4574d3f7fbc2d22090f7&code=${code}`)
-        .then((res) => {
-          localStorage.setItem('access_token', res.data.access_token);
-          this.setState({ access_token: res.data.access_token });
-          // window.history.replaceState({}, document.title, '/');
-        });
+      this.props.onFetchAccessToken(code);
     }
   }
   render() {
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem('accessToken');
     return (
       <div className={classes.Content}>
         <h1>Dashboard</h1>
@@ -31,4 +25,23 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({
+  accessToken: state.accessToken,
+  error: state.error,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onFetchAccessToken: code => dispatch(actions.fetchAccessToken(code)),
+});
+
+Dashboard.propTypes = {
+  // accessToken: PropTypes.string,
+  // history: PropTypes.node.isRequired,
+  onFetchAccessToken: PropTypes.func.isRequired,
+};
+
+Dashboard.defaultProps = {
+  // accessToken: null,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
