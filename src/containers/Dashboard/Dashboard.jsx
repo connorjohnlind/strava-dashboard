@@ -15,23 +15,16 @@ class Dashboard extends Component {
     if (query.get('code')) {
       this.props.onAuth(query.get('code'));
     } else if (localStorage.getItem('accessToken')) {
-      this.props.onAuthCheck(localStorage.getItem('accessToken'));
+      this.props.onAthleteGet(localStorage.getItem('accessToken'));
     } else {
       this.props.onAuthRevoke(); // cancels loading state
     }
   }
   render() {
-    let dashboard = (
-      <div className={classes.Card}>
-        <img className={classes.Avatar} src={this.props.profile} alt="Avatar" />
-        <div className={classes.Content}>
-          <p>{`${this.props.firstname} ${this.props.lastname}`}</p>
-          <p>{`${this.props.city}, ${this.props.state}`}</p>
-        </div>
-      </div>
-    );
+    let dashboard;
 
     if (this.props.error) {
+      localStorage.removeItem('accessToken'); // prevents error message on a reload
       dashboard = (
         <div>
           <p>{this.props.error.data.message}</p>
@@ -42,6 +35,17 @@ class Dashboard extends Component {
       dashboard = <Spinner />;
     } else if (!this.props.loading && !this.props.accessToken) {
       dashboard = <Login />;
+    } else {
+      dashboard = (
+        <div className={classes.Card}>
+          <img className={classes.Avatar} src={this.props.athlete.profile_medium} alt="Avatar" />
+          <div className={classes.Content}>
+            <p><strong>{`${this.props.athlete.firstname} ${this.props.athlete.lastname}`}</strong></p>
+            <p>{`${this.props.athlete.city}, ${this.props.athlete.state}`}</p>
+            <p>{`Following: ${this.props.athlete.friend_count} | Followers: ${this.props.athlete.follower_count}`}</p>
+          </div>
+        </div>
+      );
     }
 
     return dashboard;
@@ -50,43 +54,43 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   accessToken: state.auth.accessToken,
-  error: state.auth.error,
+  athlete: state.auth.athlete,
+  error: state.auth.error, // combine errors from multiple reducers
   loading: state.auth.loading,
-  firstname: state.auth.firstname,
-  lastname: state.auth.lastname,
-  city: state.auth.city,
-  state: state.auth.state,
-  profile: state.auth.profile,
 });
 
 const mapDispatchToProps = dispatch => ({
+  onAthleteGet: accessToken => dispatch(actions.athleteGet(accessToken)),
   onAuth: codeQuery => dispatch(actions.auth(codeQuery)),
-  onAuthCheck: accessToken => dispatch(actions.authCheck(accessToken)),
   onAuthRevoke: () => dispatch(actions.authRevoke()),
 });
 
 Dashboard.propTypes = {
   accessToken: PropTypes.string,
-  error: PropTypes.object,
+  athlete: PropTypes.shape({
+    firstname: PropTypes.string,
+    lastname: PropTypes.string,
+    city: PropTypes.string,
+    state: PropTypes.string,
+    profile_medium: PropTypes.string,
+    follower_count: PropTypes.number,
+    friend_count: PropTypes.number,
+  }),
+  error: PropTypes.shape({
+    data: PropTypes.shape({
+      message: PropTypes.string,
+    }),
+  }),
   loading: PropTypes.bool.isRequired,
-  firstname: PropTypes.string,
-  lastname: PropTypes.string,
-  city: PropTypes.string,
-  state: PropTypes.string,
-  profile: PropTypes.string,
+  onAthleteGet: PropTypes.func.isRequired,
   onAuth: PropTypes.func.isRequired,
-  onAuthCheck: PropTypes.func.isRequired,
   onAuthRevoke: PropTypes.func.isRequired,
 };
 
 Dashboard.defaultProps = {
   accessToken: null,
+  athlete: null,
   error: null,
-  firstname: null,
-  lastname: null,
-  city: null,
-  state: null,
-  profile: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

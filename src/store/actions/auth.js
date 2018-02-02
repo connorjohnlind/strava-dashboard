@@ -3,26 +3,10 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 // authentication is initialized with oAuth
-export const authInit = (accessToken, athlete) => ({
-  type: actionTypes.AUTH_INIT,
+export const authSuccess = (accessToken, athlete) => ({
+  type: actionTypes.AUTH_SUCCESS,
   accessToken,
-  firstname: athlete.firstname,
-  lastname: athlete.lastname,
-  city: athlete.city,
-  state: athlete.state,
-  profile: athlete.profile_medium,
-});
-
-// authentication is renewed with the Athletes API
-// athlete data will formatted differently
-export const authRenew = (accessToken, athlete) => ({
-  type: actionTypes.AUTH_RENEW,
-  accessToken,
-  firstname: athlete.firstname,
-  lastname: athlete.lastname,
-  city: athlete.city,
-  state: athlete.state,
-  profile: athlete.profile_medium,
+  athlete,
 });
 
 export const authRevoke = () => ({
@@ -34,24 +18,28 @@ export const authFail = error => ({
   error,
 });
 
+// extends the athlete dataset after oAuth, and renews existing tokens
+// receives an access token, returns the access token and the athlete profile
+export const athleteGet = accessToken => ((dispatch) => {
+  axios.get(`https://www.strava.com/api/v3/athlete?access_token=${accessToken}`)
+    .then((res) => {
+      dispatch(authSuccess(accessToken, res.data));
+    })
+    .catch((error) => {
+      dispatch(authFail(error.response));
+    });
+});
+
+// handles the oAuth token exchange
+// receives a query parameter and outputs an accessToken from the Strava Auth API
 export const auth = codeQuery => ((dispatch) => {
   axios.post(`https://www.strava.com/oauth/token?client_id=23058&client_secret=7acf3779503a1e2f856a4574d3f7fbc2d22090f7&code=${codeQuery}`)
     .then((res) => {
       localStorage.setItem('accessToken', res.data.access_token);
-      dispatch(authInit(res.data.access_token, res.data.athlete));
+      dispatch(athleteGet(res.data.access_token));
     })
     .catch((error) => {
       dispatch(authFail(error.response));
     });
   window.history.replaceState({}, document.title, '/');
-});
-
-export const authCheck = accessToken => ((dispatch) => {
-  axios.get(`https://www.strava.com/api/v3/athlete?access_token=${accessToken}`)
-    .then((res) => {
-      dispatch(authRenew(accessToken, res.data));
-    })
-    .catch((error) => {
-      dispatch(authFail(error.response));
-    });
 });
