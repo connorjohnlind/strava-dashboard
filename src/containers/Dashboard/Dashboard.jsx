@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import URLSearchParams from 'url-search-params';
 
+import Login from '../../components/Login/Login';
 import classes from './Dashboard.scss';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import * as actions from '../../store/actions/index';
 
 
 class Dashboard extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const query = new URLSearchParams(window.location.search);
     if (query.get('code')) {
       this.props.onAuth(query.get('code'));
@@ -22,18 +22,26 @@ class Dashboard extends Component {
   }
   render() {
     let dashboard = (
-      <div className={classes.Content}>
-        <h1>Dashboard</h1>
-        <p>Your access token is: {this.props.accessToken}</p>
+      <div className={classes.Card}>
+        <img className={classes.Avatar} src={this.props.profile} alt="Avatar" />
+        <div className={classes.Content}>
+          <p>{`${this.props.firstname} ${this.props.lastname}`}</p>
+          <p>{`${this.props.city}, ${this.props.state}`}</p>
+        </div>
       </div>
     );
 
     if (this.props.error) {
-      dashboard = <p>{this.props.error.data.message}</p>;
+      dashboard = (
+        <div>
+          <p>{this.props.error.data.message}</p>
+          <Login />
+        </div>
+      );
     } else if (this.props.loading) {
       dashboard = <Spinner />;
     } else if (!this.props.loading && !this.props.accessToken) {
-      dashboard = <Redirect to="/login" />;
+      dashboard = <Login />;
     }
 
     return dashboard;
@@ -41,10 +49,14 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  accessToken: state.authReducer.accessToken,
-  athlete: state.authReducer.athlete,
-  error: state.authReducer.error,
-  loading: state.authReducer.loading,
+  accessToken: state.auth.accessToken,
+  error: state.auth.error,
+  loading: state.auth.loading,
+  firstname: state.auth.firstname,
+  lastname: state.auth.lastname,
+  city: state.auth.city,
+  state: state.auth.state,
+  profile: state.auth.profile,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -55,9 +67,13 @@ const mapDispatchToProps = dispatch => ({
 
 Dashboard.propTypes = {
   accessToken: PropTypes.string,
-  athlete: PropTypes.object,
-  error: PropTypes.node,
+  error: PropTypes.object,
   loading: PropTypes.bool.isRequired,
+  firstname: PropTypes.string,
+  lastname: PropTypes.string,
+  city: PropTypes.string,
+  state: PropTypes.string,
+  profile: PropTypes.string,
   onAuth: PropTypes.func.isRequired,
   onAuthCheck: PropTypes.func.isRequired,
   onAuthRevoke: PropTypes.func.isRequired,
@@ -65,8 +81,12 @@ Dashboard.propTypes = {
 
 Dashboard.defaultProps = {
   accessToken: null,
-  athlete: null,
   error: null,
+  firstname: null,
+  lastname: null,
+  city: null,
+  state: null,
+  profile: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

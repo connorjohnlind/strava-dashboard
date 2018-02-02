@@ -9,13 +9,13 @@ import thunk from 'redux-thunk';
 
 import './index.scss';
 import App from './App';
-import authReducer from './store/reducers/auth';
-import athletesReducer from './store/reducers/athletes';
-import activitiesReducer from './store/reducers/activities';
+import auth from './store/reducers/auth';
+import athletes from './store/reducers/athletes';
+import activities from './store/reducers/activities';
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const rootReducer = combineReducers({ authReducer, athletesReducer, activitiesReducer });
+const rootReducer = combineReducers({ auth, athletes, activities });
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 /* eslint-enable */
 

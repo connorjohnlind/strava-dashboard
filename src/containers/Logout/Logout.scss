@@ -4,4 +4,6 @@
 .Content {
   @extend .card;
   @extend .flexcol;
+  height: 100px;
+  justify-content: center;
 }

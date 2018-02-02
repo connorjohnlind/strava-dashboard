@@ -6,15 +6,23 @@ import * as actionTypes from './actionTypes';
 export const authInit = (accessToken, athlete) => ({
   type: actionTypes.AUTH_INIT,
   accessToken,
-  athlete,
+  firstname: athlete.firstname,
+  lastname: athlete.lastname,
+  city: athlete.city,
+  state: athlete.state,
+  profile: athlete.profile_medium,
 });
 
-// authentication is renewed on the Athletes API
+// authentication is renewed with the Athletes API
 // athlete data will formatted differently
 export const authRenew = (accessToken, athlete) => ({
   type: actionTypes.AUTH_RENEW,
   accessToken,
-  athlete,
+  firstname: athlete.firstname,
+  lastname: athlete.lastname,
+  city: athlete.city,
+  state: athlete.state,
+  profile: athlete.profile_medium,
 });
 
 export const authRevoke = () => ({
