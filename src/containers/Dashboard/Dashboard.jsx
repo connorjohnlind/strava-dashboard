@@ -11,15 +11,14 @@ import * as actions from '../../store/actions/index';
 
 class Dashboard extends Component {
   componentWillMount() {
-    // check localStorage first
-    if (localStorage.getItem('accessToken')) {
-      this.props.onAuthSet(localStorage.getItem('accessToken'));
-      return;
-    }
-    // check the query string next
     const query = new URLSearchParams(window.location.search);
-    const code = query.get('code');
-    if (code) this.props.onAuth(code);
+    if (query.get('code')) {
+      this.props.onAuth(query.get('code'));
+    } else if (localStorage.getItem('accessToken')) {
+      this.props.onAuthCheck(localStorage.getItem('accessToken'));
+    } else {
+      this.props.onAuthRevoke(); // cancels loading state
+    }
   }
   render() {
     let dashboard = (
@@ -29,7 +28,9 @@ class Dashboard extends Component {
       </div>
     );
 
-    if (this.props.loading) {
+    if (this.props.error) {
+      dashboard = <p>{this.props.error.data.message}</p>;
+    } else if (this.props.loading) {
       dashboard = <Spinner />;
     } else if (!this.props.loading && !this.props.accessToken) {
       dashboard = <Redirect to="/login" />;
@@ -41,24 +42,31 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   accessToken: state.authReducer.accessToken,
+  athlete: state.authReducer.athlete,
   error: state.authReducer.error,
   loading: state.authReducer.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onAuth: code => dispatch(actions.auth(code)),
-  onAuthSet: token => dispatch(actions.authSet(token)),
+  onAuth: codeQuery => dispatch(actions.auth(codeQuery)),
+  onAuthCheck: accessToken => dispatch(actions.authCheck(accessToken)),
+  onAuthRevoke: () => dispatch(actions.authRevoke()),
 });
 
 Dashboard.propTypes = {
   accessToken: PropTypes.string,
+  athlete: PropTypes.object,
+  error: PropTypes.node,
   loading: PropTypes.bool.isRequired,
   onAuth: PropTypes.func.isRequired,
-  onAuthSet: PropTypes.func.isRequired,
+  onAuthCheck: PropTypes.func.isRequired,
+  onAuthRevoke: PropTypes.func.isRequired,
 };
 
 Dashboard.defaultProps = {
   accessToken: null,
+  athlete: null,
+  error: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

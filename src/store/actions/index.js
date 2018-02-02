@@ -1,4 +1,10 @@
 export {
   auth,
-  authSet,
+  authCheck,
+  authRevoke,
 } from './auth';
+
+export {
+  athleteGet,
+  athleteRemove,
+} from './athletes';

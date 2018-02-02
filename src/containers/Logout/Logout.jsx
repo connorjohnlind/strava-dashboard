@@ -20,7 +20,7 @@ class Logout extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onAuthRevoke: () => dispatch(actions.authSet(null)),
+  onAuthRevoke: () => dispatch(actions.authRevoke()),
 });
 
 Logout.propTypes = {
