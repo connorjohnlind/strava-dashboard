@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Layout.scss';
-import Topbar from '../components/Navigation/Topbar';
+import Topbar from '../containers/Navigation/Topbar';
 
 const Layout = props => (
   <div>
     <Topbar />
-    <main className={classes.Content}>
+    <main className={classes.Dashboard}>
       {props.children}
     </main>
   </div>

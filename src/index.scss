@@ -1,9 +1,17 @@
 @import './scss/normalize';
 @import './scss/variables';
 
+* {
+  box-sizing: border-box;
+}
+
 body {
     font-family: "Helvetica Neue", Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: $app-background-color;
+}
+
+button:focus {
+  outline:0;
 }

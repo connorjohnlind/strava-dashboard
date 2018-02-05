@@ -1,5 +1,6 @@
 @import '../scss/format';
 
-.Content {
+.Dashboard {
   @extend .flexcol;
+  padding-top: 50px;
 }

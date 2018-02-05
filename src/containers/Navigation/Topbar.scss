@@ -1,0 +1,34 @@
+@import '../../scss/variables';
+
+.Topbar {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  position: fixed;
+  align-items: center;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background-color: $card-color;
+  padding: 0 10px;
+}
+
+.PoweredLogo {
+  width: 120px;
+  height: 50px;
+}
+
+.Logout {
+  background-color: $strava-orange;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  width: 80px;
+  height: 75%;
+  font-size: 11pt;
+}
+
+.Logout:hover {
+  cursor: pointer;
+}
