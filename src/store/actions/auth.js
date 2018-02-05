@@ -2,11 +2,11 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 
-export const authSuccess = (accessToken, athlete, stats) => ({
+export const authSuccess = (accessToken, athlete, totals) => ({
   type: actionTypes.AUTH_SUCCESS,
   accessToken,
   athlete,
-  stats,
+  totals,
 });
 
 export const authRevoke = () => ({
@@ -19,7 +19,7 @@ export const authFail = error => ({
 });
 
 // extends the state with stats dataset after athelteGet
-export const statsGet = (accessToken, athleteData) => ((dispatch) => {
+export const totalsGet = (accessToken, athleteData) => ((dispatch) => {
   axios.get(`https://www.strava.com/api/v3/athletes/${athleteData.id}/stats?access_token=${accessToken}`)
     .then((res) => {
       dispatch(authSuccess(accessToken, athleteData, res.data));
@@ -33,7 +33,7 @@ export const statsGet = (accessToken, athleteData) => ((dispatch) => {
 export const athleteGet = accessToken => ((dispatch) => {
   axios.get(`https://www.strava.com/api/v3/athlete?access_token=${accessToken}`)
     .then((res) => {
-      dispatch(statsGet(accessToken, res.data));
+      dispatch(totalsGet(accessToken, res.data));
     })
     .catch((error) => {
       dispatch(authFail(error.response));

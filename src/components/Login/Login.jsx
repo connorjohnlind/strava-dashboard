@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import classes from './Login.scss';
 
@@ -13,15 +14,34 @@ const stravaClick = () => {
   window.location.replace(redirectUrl);
 };
 
-const Login = () => (
-  <div className={classes.Content}>
-    <h1>Login</h1>
-    <button
-      onClick={stravaClick}
-      className={classes.StravaConnect}
-      alt="Strava Connect"
-    />
-  </div>
-);
+const Login = (props) => {
+  let errorMessage;
+  if (props.error) {
+    errorMessage = <p>{props.error.data.message}</p>;
+  }
+  return (
+    <div className={classes.Content}>
+      {errorMessage}
+      <h1>Login</h1>
+      <button
+        onClick={stravaClick}
+        className={classes.StravaConnect}
+        alt="Strava Connect"
+      />
+    </div>
+  );
+};
+
+Login.propTypes = {
+  error: PropTypes.shape({
+    data: PropTypes.shape({
+      message: PropTypes.string,
+    }),
+  }),
+};
+
+Login.defaultProps = {
+  error: null,
+};
 
 export default Login;

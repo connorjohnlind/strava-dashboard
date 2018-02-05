@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import URLSearchParams from 'url-search-params';
 
+import Summary from '../../components/Summary/Summary';
 import Login from '../../components/Login/Login';
-import classes from './Dashboard.scss';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import * as actions from '../../store/actions/index';
-
 
 class Dashboard extends Component {
   componentWillMount() {
@@ -16,39 +15,22 @@ class Dashboard extends Component {
       this.props.onAuth(query.get('code'));
     } else if (localStorage.getItem('accessToken')) {
       this.props.onAthleteGet(localStorage.getItem('accessToken'));
-      // stats get too
     } else {
       this.props.onAuthRevoke(); // cancels loading state
     }
   }
   render() {
     let dashboard;
-
     if (this.props.error) {
       localStorage.removeItem('accessToken'); // prevents error message on a reload
-      dashboard = (
-        <div>
-          <p>{this.props.error.data.message}</p>
-          <Login />
-        </div>
-      );
+      dashboard = <Login error={this.props.error} />;
     } else if (this.props.loading) {
       dashboard = <Spinner />;
     } else if (!this.props.loading && !this.props.accessToken) {
       dashboard = <Login />;
     } else {
-      dashboard = (
-        <div className={classes.Card}>
-          <img className={classes.Avatar} src={this.props.athlete.profile_medium} alt="Avatar" />
-          <div className={classes.Content}>
-            <p><strong>{`${this.props.athlete.firstname} ${this.props.athlete.lastname}`}</strong></p>
-            <p>{`${this.props.athlete.city}, ${this.props.athlete.state}`}</p>
-            <p>{`Following: ${this.props.athlete.friend_count} | Followers: ${this.props.athlete.follower_count}`}</p>
-          </div>
-        </div>
-      );
+      dashboard = <Summary athlete={this.props.athlete} totals={this.props.totals} />;
     }
-
     return dashboard;
   }
 }
@@ -56,7 +38,8 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
   accessToken: state.auth.accessToken,
   athlete: state.auth.athlete,
-  error: state.auth.error, // combine errors from multiple reducers
+  totals: state.auth.totals,
+  error: state.auth.error,
   loading: state.auth.loading,
 });
 
@@ -68,20 +51,9 @@ const mapDispatchToProps = dispatch => ({
 
 Dashboard.propTypes = {
   accessToken: PropTypes.string,
-  athlete: PropTypes.shape({
-    firstname: PropTypes.string,
-    lastname: PropTypes.string,
-    city: PropTypes.string,
-    state: PropTypes.string,
-    profile_medium: PropTypes.string,
-    follower_count: PropTypes.number,
-    friend_count: PropTypes.number,
-  }),
-  error: PropTypes.shape({
-    data: PropTypes.shape({
-      message: PropTypes.string,
-    }),
-  }),
+  athlete: PropTypes.shape({}),
+  totals: PropTypes.shape({}),
+  error: PropTypes.shape({}),
   loading: PropTypes.bool.isRequired,
   onAthleteGet: PropTypes.func.isRequired,
   onAuth: PropTypes.func.isRequired,
@@ -91,6 +63,7 @@ Dashboard.propTypes = {
 Dashboard.defaultProps = {
   accessToken: null,
   athlete: null,
+  totals: null,
   error: null,
 };
 
