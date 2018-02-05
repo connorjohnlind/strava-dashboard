@@ -3,15 +3,28 @@ import PropTypes from 'prop-types';
 
 import classes from './SportTotal.scss';
 
+const totals = [
+  { label: 'Recent', key: 'recent' },
+  { label: 'YTD', key: 'ytd' },
+  { label: 'All', key: 'all' },
+];
+
 const SportTotal = props => (
   <div className={classes.Content}>
-    <p>{`${props.sport}`}</p>
-    <p>{`RECENT: ${props.recent.count}`}</p>
-    <p>{`YTD: ${props.ytd.count}`}</p>
-    <p>{`ALL: ${props.all.count}`}</p>
+    <h3>{`${props.sport}`}</h3>
+    {totals.map(total => (
+      <div key={total.key} className={classes.Content}>
+        <p><strong>{total.label}</strong></p>
+        <p>{`Count: ${props[total.key].count}`}</p>
+        <p>{`Distance: ${(props[total.key].distance * 0.000621371).toFixed(2)} miles`}</p>
+        <p>{`Moving Time: ${(props[total.key].moving_time * 0.0166667).toFixed(0)} minutes`}</p>
+        <p>{`Elevation Gain: ${(props[total.key].elevation_gain * 3.28084).toFixed(0)} feet`}</p>
+      </div>
+    ))}
   </div>
 );
 
+/* eslint-disable react/no-unused-prop-types */
 SportTotal.propTypes = {
   sport: PropTypes.string.isRequired,
   recent: PropTypes.shape({
@@ -33,5 +46,6 @@ SportTotal.propTypes = {
     elevation_gain: PropTypes.number,
   }).isRequired,
 };
+/* eslint-enable */
 
 export default SportTotal;
