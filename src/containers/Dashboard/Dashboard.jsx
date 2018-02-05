@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import URLSearchParams from 'url-search-params';
 
+import Aux from '../../hoc/Aux';
 import Summary from '../../components/Summary/Summary';
+import Totals from '../Totals/Totals';
 import Login from '../../components/Login/Login';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import * as actions from '../../store/actions/index';
@@ -29,7 +31,12 @@ class Dashboard extends Component {
     } else if (!this.props.loading && !this.props.accessToken) {
       dashboard = <Login />;
     } else {
-      dashboard = <Summary athlete={this.props.athlete} totals={this.props.totals} />;
+      dashboard = (
+        <Aux>
+          <Summary athlete={this.props.athlete} totals={this.props.totals} />
+          <Totals totals={this.props.totals} />
+        </Aux>
+      );
     }
     return dashboard;
   }
