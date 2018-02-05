@@ -2,8 +2,9 @@ import * as actionTypes from '../actions/actionTypes';
 import updateObject from '../utility';
 
 const initialState = {
-  accessToken: null, // existing localstorage token is checked in componentWillMount
-  athlete: null, // prevents error thrown on render() accessing props of null
+  accessToken: null, // existing localStorage token is checked in componentWillMount
+  athlete: null,
+  stats: null,
   error: null,
   loading: true, // since oAuth is a redirect, set initial loading state to true
 };
@@ -14,6 +15,7 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, {
         accessToken: action.accessToken,
         athlete: action.athlete,
+        stats: action.stats,
         error: null,
         loading: false,
       });
@@ -21,6 +23,7 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, {
         accessToken: null,
         athlete: null,
+        stats: null,
         error: null,
         loading: false,
       });

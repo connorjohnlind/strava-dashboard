@@ -2,11 +2,11 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 
-// authentication is initialized with oAuth
-export const authSuccess = (accessToken, athlete) => ({
+export const authSuccess = (accessToken, athlete, stats) => ({
   type: actionTypes.AUTH_SUCCESS,
   accessToken,
   athlete,
+  stats,
 });
 
 export const authRevoke = () => ({
@@ -18,12 +18,22 @@ export const authFail = error => ({
   error,
 });
 
-// extends the athlete dataset after oAuth, and renews existing tokens
-// receives an access token, returns the access token and the athlete profile
+// extends the state with stats dataset after athelteGet
+export const statsGet = (accessToken, athleteData) => ((dispatch) => {
+  axios.get(`https://www.strava.com/api/v3/athletes/${athleteData.id}/stats?access_token=${accessToken}`)
+    .then((res) => {
+      dispatch(authSuccess(accessToken, athleteData, res.data));
+    })
+    .catch((error) => {
+      dispatch(authFail(error.response));
+    });
+});
+
+// extends the state with the stats dataset after oAuth
 export const athleteGet = accessToken => ((dispatch) => {
   axios.get(`https://www.strava.com/api/v3/athlete?access_token=${accessToken}`)
     .then((res) => {
-      dispatch(authSuccess(accessToken, res.data));
+      dispatch(statsGet(accessToken, res.data));
     })
     .catch((error) => {
       dispatch(authFail(error.response));

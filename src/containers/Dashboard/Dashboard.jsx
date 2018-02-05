@@ -10,12 +10,13 @@ import * as actions from '../../store/actions/index';
 
 
 class Dashboard extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const query = new URLSearchParams(window.location.search);
     if (query.get('code')) {
       this.props.onAuth(query.get('code'));
     } else if (localStorage.getItem('accessToken')) {
       this.props.onAthleteGet(localStorage.getItem('accessToken'));
+      // stats get too
     } else {
       this.props.onAuthRevoke(); // cancels loading state
     }
