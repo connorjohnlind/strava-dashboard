@@ -3,12 +3,13 @@ module.exports = {
     "env": {
       "browser": true,
     },
-    "parser": "babel-eslint",
+    "parser": "babel-eslint", // stage 2 babel
     "rules": {
-        "jsx-a11y/anchor-is-valid": [ "error", {
-            "components": [ "Link" ],
-            "specialLink": [ "to" ],
-            "aspects": [ "noHref", "invalidHref", "preferButton" ]
-          }],
+      "function-paren-newline": ["error", "consistent"], // pushing react elements to arrays
+      "jsx-a11y/anchor-is-valid": [ "error", {
+        "components": [ "Link" ],
+        "specialLink": [ "to" ],
+        "aspects": [ "noHref", "invalidHref", "preferButton" ]
+      }],
     },
 };

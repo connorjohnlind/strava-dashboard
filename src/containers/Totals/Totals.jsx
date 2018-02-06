@@ -4,45 +4,73 @@ import { connect } from 'react-redux';
 
 import classes from './Totals.scss';
 import Button from '../../components/UI/Button/Button';
-import SportTotal from '../../components/SportTotal/SportTotal';
+import SportTotals from '../../components/SportTotals/SportTotals';
 
-const sports = [
+const sportTypes = [
   { label: 'Rides', key: 'ride' },
   { label: 'Runs', key: 'run' },
   { label: 'Swims', key: 'swim' },
 ];
 
+const totalTypes = [
+  { label: 'Recent', key: 'recent' },
+  { label: 'YTD', key: 'ytd' },
+  { label: 'All', key: 'all' },
+];
+
 class Totals extends Component {
+  // redux imports the data retrieved from Strava
+  // local state manages the UI of showing/hiding data
   state = {
-    ride: true, // must be exactly identical to the sports key
+    ride: true, // must be exactly identical to the sportTypes key
     run: true,
     swim: true,
+    recent: true, // must be exactly identical to the totalTypes key
+    ytd: true,
+    all: true,
   }
   render() {
-    const totals = sports.map((sport) => {
-      if (this.state[sport.key]) {
+    // iterate through the sportTypes array to create buttons
+    const sportButtons = sportTypes.map(sportType => (
+      <Button
+        key={`${sportType.key}_button`}
+        clicked={() => { this.setState({ [sportType.key]: !this.state[sportType.key] }); }}
+      >{sportType.label}
+      </Button>
+    ));
+
+    // iterate through the totalTypes array to create buttons
+    const totalsButtons = totalTypes.map(totalType => (
+      <Button
+        key={`${totalType.key}_button`}
+        clicked={() => { this.setState({ [totalType.key]: !this.state[totalType.key] }); }}
+      >{totalType.label}
+      </Button>
+    ));
+
+    // iterate through the sportTypes array to create buttons and charts
+    const sportTotals = sportTypes.map((sportType) => {
+      if (this.state[sportType.key]) {
         return (
-          <SportTotal
-            key={sport.key}
-            sport={sport.label}
-            recent={this.props.totals[`recent_${sport.key}_totals`]}
-            ytd={this.props.totals[`ytd_${sport.key}_totals`]}
-            all={this.props.totals[`all_${sport.key}_totals`]}
+          <SportTotals
+            key={`${sportType.key}_total`}
+            sport={sportType.label}
+            totalTypes={totalTypes}
+            recent={this.state.recent ? this.props.totals[`recent_${sportType.key}_totals`] : null}
+            ytd={this.state.ytd ? this.props.totals[`ytd_${sportType.key}_totals`] : null}
+            all={this.state.all ? this.props.totals[`all_${sportType.key}_totals`] : null}
           />
         );
       }
       return null;
     });
+
     return (
       <div className={classes.Card} >
         <h3>Totals</h3>
-        <Button clicked={() => { this.setState({ ride: !this.state.ride }); }}>Rides</Button>
-        <Button clicked={() => { this.setState({ run: !this.state.run }); }}>Runs</Button>
-        <Button clicked={() => { this.setState({ swim: !this.state.swim }); }}>Swims</Button>
-        {/* <Button clicked={() => { this.setState({ ride: !this.state.ride }); }}>Recent</Button>
-        <Button clicked={() => { this.setState({ ride: !this.state.ride }); }}>YTD</Button>
-        <Button clicked={() => { this.setState({ ride: !this.state.ride }); }}>All</Button> */}
-        {totals}
+        {sportButtons}
+        {totalsButtons}
+        {sportTotals}
         <p>{`Biggest Ride: ${this.props.totals.biggest_ride_distance}`}</p>
       </div>
     );
