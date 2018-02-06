@@ -1,9 +1,0 @@
-@import '../../scss/base';
-@import '../../scss/format';
-
-.Content {
-  @extend .card;
-  @extend .flexcol;
-  height: 100px;
-  justify-content: center;
-}

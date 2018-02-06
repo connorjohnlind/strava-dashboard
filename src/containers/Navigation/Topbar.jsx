@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
 import classes from './Topbar.scss';
+import Button from '../../components/UI/Button/Button';
 import PoweredLogo from '../../assets/api_logo_pwrdBy_strava_stack_light.png';
 
 class Topbar extends Component {
@@ -14,7 +15,7 @@ class Topbar extends Component {
   render() {
     let logout;
     if (this.props.accessToken) {
-      logout = <button className={classes.Logout} onClick={this.logoutHandler}>Logout</button>;
+      logout = <Button clicked={this.logoutHandler}>Logout</Button>;
     }
     return (
       <div className={classes.Topbar}>

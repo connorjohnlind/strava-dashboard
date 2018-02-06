@@ -1,0 +1,33 @@
+@import '../../../scss/variables';
+
+.Button {
+  background-color: $strava-orange;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  width: 80px;
+  height: 75%;
+  font-size: 11pt;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px 5px;
+}
+
+.Button:focus {
+  outline:0;
+}
+
+.Button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.Success {
+  color: #5C9210;
+}
+
+.Danger {
+  color: #944317;
+}
