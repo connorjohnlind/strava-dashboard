@@ -6,7 +6,7 @@ import Total from './Total/Total';
 
 const SportTotals = (props) => {
   const totals = props.totalTypes.map(totalType => (
-    (props.recent)
+    props[totalType.key]
       ? <Total key={`${totalType.key}_totals`} label={totalType.label} data={props[totalType.key]} />
       : null
   ));
@@ -18,17 +18,27 @@ const SportTotals = (props) => {
   );
 };
 
-/* eslint-disable react/no-unused-prop-types */
+
 SportTotals.propTypes = {
   sport: PropTypes.string.isRequired,
-  totalTypes: PropTypes.arrayOf({
-    label: PropTypes.string,
-    key: PropTypes.string,
-  }).isRequired,
-  recent: PropTypes.shape({}).isRequired,
-  ytd: PropTypes.shape({}).isRequired,
-  all: PropTypes.shape({}).isRequired,
+  totalTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      key: PropTypes.string,
+    }),
+  ).isRequired,
+  /* eslint-disable react/no-unused-prop-types */
+  // from the Strava API v3, passed down from totalTypes
+  recent: PropTypes.shape({}),
+  ytd: PropTypes.shape({}),
+  all: PropTypes.shape({}),
+  /* eslint-enable */
 };
-/* eslint-enable */
+
+SportTotals.defaultProps = {
+  recent: null,
+  ytd: null,
+  all: null,
+};
 
 export default SportTotals;

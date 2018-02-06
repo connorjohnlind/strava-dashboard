@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import classes from './Totals.scss';
 import Button from '../../components/UI/Button/Button';
 import SportTotals from '../../components/SportTotals/SportTotals';
 
+// label is rendered in DOM, key mirrors the Strava API
 const sportTypes = [
   { label: 'Rides', key: 'ride' },
   { label: 'Runs', key: 'run' },
@@ -19,8 +19,8 @@ const totalTypes = [
 ];
 
 class Totals extends Component {
-  // redux imports the data retrieved from Strava
-  // local state manages the UI of showing/hiding data
+  // receives the redux data retrieved from Strava as a totals prop
+  // local state manages the UI of showing/hiding the data
   state = {
     ride: true, // must be exactly identical to the sportTypes key
     run: true,
@@ -48,17 +48,23 @@ class Totals extends Component {
       </Button>
     ));
 
-    // iterate through the sportTypes array to create buttons and charts
+    // iterate through the sportTypes array to create charts
     const sportTotals = sportTypes.map((sportType) => {
       if (this.state[sportType.key]) {
+        // loop through totalTypes to check state and create some dynamic props object
+        const dynamicProps = {};
+        totalTypes.forEach((totalType) => {
+          if (this.state[totalType.key]) {
+            dynamicProps[totalType.key] = this.props.totals[`${totalType.key}_${sportType.key}_totals`];
+          }
+        });
+        // then add that dynamic props object to the sporttoal
         return (
           <SportTotals
             key={`${sportType.key}_total`}
             sport={sportType.label}
             totalTypes={totalTypes}
-            recent={this.state.recent ? this.props.totals[`recent_${sportType.key}_totals`] : null}
-            ytd={this.state.ytd ? this.props.totals[`ytd_${sportType.key}_totals`] : null}
-            all={this.state.all ? this.props.totals[`all_${sportType.key}_totals`] : null}
+            {...dynamicProps}
           />
         );
       }
@@ -77,11 +83,9 @@ class Totals extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  totals: state.auth.totals,
-});
-
 Totals.propTypes = {
+  // from the Strava API v3
+  // the above sportTypes and totalTypes arrays copy this strucutre
   totals: PropTypes.shape({
     biggest_ride_distance: PropTypes.number,
     recent_ride_totals: PropTypes.shape({}),
@@ -96,4 +100,11 @@ Totals.propTypes = {
   }).isRequired,
 };
 
-export default connect(mapStateToProps)(Totals);
+export default Totals;
+
+// const dynamicProps = {};
+// totalTypes.forEach((totalType) => {
+//   this.state[totalType.key]
+//     ? dynamicProps[totalType.key] = this.props.totals[`${totalType.key}_${sportType.key}_totals`]
+//     : null
+// });
