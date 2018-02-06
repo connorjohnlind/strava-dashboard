@@ -10,7 +10,9 @@ import PoweredLogo from '../../assets/api_logo_pwrdBy_strava_stack_light.png';
 class Topbar extends Component {
   logoutHandler = () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('totalsFilter');
     this.props.onAuthRevoke();
+    this.props.onActivitiesRevoke();
   }
   render() {
     let logout;
@@ -31,11 +33,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  onActivitiesRevoke: () => dispatch(actions.activitiesRevoke()),
   onAuthRevoke: () => dispatch(actions.authRevoke()),
 });
 
 Topbar.propTypes = {
   accessToken: PropTypes.string,
+  onActivitiesRevoke: PropTypes.func.isRequired,
   onAuthRevoke: PropTypes.func.isRequired,
 };
 

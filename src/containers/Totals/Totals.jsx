@@ -26,7 +26,7 @@ class Totals extends Component {
   state = {
     ride: true, // must be exactly identical to the sportTypes key
     run: true,
-    swim: false,
+    swim: true,
     recent: true, // must be exactly identical to the totalTypes key
     ytd: true,
     all: true,

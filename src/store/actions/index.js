@@ -3,3 +3,8 @@ export {
   authRevoke,
   athleteGet,
 } from './auth';
+
+export {
+  activitiesGet,
+  activitiesRevoke,
+} from './activities';
