@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classes from './Totals.scss';
 import Button from '../../components/UI/Button/Button';
 import SportTotals from '../../components/SportTotals/SportTotals';
+import Total from '../../components/SportTotals/Total/Total';
 
 // label is rendered in DOM, key mirrors the Strava API
 const sportTypes = [
@@ -49,23 +50,22 @@ class Totals extends Component {
     ));
 
     // iterate through the sportTypes array to create charts
+    // note: duplicated iterators from the above components for easier readibility
     const sportTotals = sportTypes.map((sportType) => {
       if (this.state[sportType.key]) {
-        // loop through totalTypes to check state and create some dynamic props object
-        const dynamicProps = {};
-        totalTypes.forEach((totalType) => {
-          if (this.state[totalType.key]) {
-            dynamicProps[totalType.key] = this.props.totals[`${totalType.key}_${sportType.key}_totals`];
-          }
-        });
-        // then add that dynamic props object to the sporttoal
+        const totals = totalTypes.map(totalType => (
+          this.state[totalType.key]
+            ? <Total key={`${totalType.key}_totals`} label={totalType.label} data={this.props.totals[`${totalType.key}_${sportType.key}_totals`]} />
+            : null
+        ));
         return (
           <SportTotals
             key={`${sportType.key}_total`}
             sport={sportType.label}
             totalTypes={totalTypes}
-            {...dynamicProps}
-          />
+          >
+            {totals}
+          </SportTotals>
         );
       }
       return null;
