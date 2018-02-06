@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import classes from './Total.scss';
+import classes from './Chart.scss';
 
-const Total = props => (
+const Chart = props => (
   <div className={classes.Content}>
     <p><strong>{props.label}</strong></p>
     <p>{`Count: ${props.data.count}`}</p>
@@ -13,7 +13,7 @@ const Total = props => (
   </div>
 );
 
-Total.propTypes = {
+Chart.propTypes = {
   label: PropTypes.string.isRequired,
   data: PropTypes.shape({
     count: PropTypes.number,
@@ -23,4 +23,4 @@ Total.propTypes = {
   }).isRequired,
 };
 
-export default Total;
+export default Chart;

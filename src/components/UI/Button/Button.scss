@@ -24,6 +24,17 @@
   cursor: not-allowed;
 }
 
+.Filter {
+  background-color: $app-background-color;
+  color: $strava-orange;
+  width: 60px;
+  font-size: 9pt;
+  &.Active {
+    background-color: $strava-orange;
+    color: white;
+  }
+}
+
 .Success {
   color: #5C9210;
 }

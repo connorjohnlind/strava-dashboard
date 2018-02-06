@@ -3,16 +3,20 @@ import PropTypes from 'prop-types';
 
 import classes from './Button.scss';
 
-const Button = props => (
-  <button
-    disabled={props.disabled}
-    className={[classes.Button, classes[props.btnType]].join(' ')}
-    onClick={props.clicked}
-  >{props.children}
-  </button>
-);
+const Button = (props) => {
+  const activeClass = props.active ? classes.Active : null;
+  return (
+    <button
+      disabled={props.disabled}
+      className={[classes.Button, classes[props.btnType], activeClass].join(' ')}
+      onClick={props.clicked}
+    >{props.children}
+    </button>
+  );
+};
 
 Button.propTypes = {
+  active: PropTypes.bool,
   btnType: PropTypes.string,
   disabled: PropTypes.bool,
   children: PropTypes.node.isRequired,
@@ -20,7 +24,8 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  btnType: '',
+  active: false,
+  btnType: null,
   disabled: false,
 };
 
