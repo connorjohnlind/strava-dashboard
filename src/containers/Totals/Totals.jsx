@@ -60,7 +60,7 @@ class Totals extends Component {
     ));
 
     // iterate through the sportTypes array to create charts
-    // note: duplicated sportType iterator from above, chosen for easier readibility
+    // note: duplicated sportType iterator from above, chosen for readibility
     const sportTotals = sportTypes.map((sportType) => {
       // check if the sportType is active in the state
       if (this.state[sportType.key]) {
