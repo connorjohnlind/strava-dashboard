@@ -58,8 +58,12 @@ module.exports = {
         }),
       },
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif|svg)$/,
         loader: 'url-loader?limit=8000&name=images/[name].[ext]',
+      },
+      {
+        test: /\.(ico)$/, // favicon
+        loader: 'file-loader?name=[name].[ext]',
       },
     ],
   },
