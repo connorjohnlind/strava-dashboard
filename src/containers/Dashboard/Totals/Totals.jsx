@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Totals.scss';
-import Button from '../../components/UI/Button/Button';
-import Filters from '../../components/UI/Filters/Filters';
-import SportTotals from '../../components/totals/SportTotals/SportTotals';
-import Chart from '../../components/totals/SportTotals/Chart/Chart';
+import Button from '../../../components/UI/Button/Button';
+import Filters from '../../../components/UI/Filters/Filters';
+import SportTotals from '../../../components/totals/SportTotals/SportTotals';
+import Chart from '../../../components/totals/SportTotals/Chart/Chart';
 
 // label is rendered in DOM, key mirrors the Strava API
 const sportTypes = [

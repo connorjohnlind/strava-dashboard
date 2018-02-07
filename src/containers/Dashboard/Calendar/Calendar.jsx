@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 // import dateFns from 'date-fns';
 
 import classes from './Calendar.scss';
-import CalendarHeader from '../../components/calendar/CalendarHeader/CalendarHeader';
-import WeekHeader from '../../components/calendar/WeekHeader/WeekHeader';
-import Day from '../../components/calendar/Day/Day';
+import CalendarHeader from '../../../components/calendar/CalendarHeader/CalendarHeader';
+import WeekHeader from '../../../components/calendar/WeekHeader/WeekHeader';
+import Day from '../../../components/calendar/Day/Day';
 
 class Calendar extends Component {
   componentWillMount() {

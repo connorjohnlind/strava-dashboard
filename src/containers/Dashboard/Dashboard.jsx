@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import URLSearchParams from 'url-search-params';
 
 import Aux from '../../components/hoc/Aux';
-import Calendar from '../Calendar/Calendar';
+import Calendar from '../Dashboard/Calendar/Calendar';
 import Summary from '../../components/Summary/Summary';
-import Totals from '../Totals/Totals';
+import Totals from '../Dashboard/Totals/Totals';
 import Login from '../../components/Login/Login';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import * as actions from '../../store/actions/index';
