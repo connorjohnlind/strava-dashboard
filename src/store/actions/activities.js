@@ -17,7 +17,7 @@ export const activitiesFail = error => ({
 });
 
 export const activitiesGet = accessToken => ((dispatch) => {
-  axios.get(`https://www.strava.com/api/v3/athlete/activities?access_token=${accessToken}`)
+  axios.get(`https://www.strava.com/api/v3/athlete/activities?access_token=${accessToken}&per_page=100`)
     .then((res) => {
       dispatch(activitiesSuccess(res.data));
     })

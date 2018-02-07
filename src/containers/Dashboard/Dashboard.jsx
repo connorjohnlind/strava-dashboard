@@ -47,7 +47,7 @@ class Dashboard extends Component {
         </Aux>
       );
     }
-    const calendar = this.props.activities ? <Calendar /> : null;
+    const calendar = this.props.activities ? <Calendar activities={this.props.activities} /> : null;
     return (
       <Aux>
         {dashboard}
@@ -75,7 +75,9 @@ const mapDispatchToProps = dispatch => ({
 
 Dashboard.propTypes = {
   accessToken: PropTypes.string,
-  activities: PropTypes.shape({}),
+  activities: PropTypes.arrayOf(
+    PropTypes.shape({}),
+  ),
   athlete: PropTypes.shape({}),
   totals: PropTypes.shape({}),
   error: PropTypes.shape({}),
