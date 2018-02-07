@@ -7,4 +7,11 @@
   @extend .flexcol;
   margin-top: 40px;
   padding-top: 0;
+  height: 400px;
+}
+
+.Calendar {
+  width: 320px;
+  height: 320px;
+  border: 1px dashed $strava-orange;
 }
