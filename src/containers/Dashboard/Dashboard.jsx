@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import URLSearchParams from 'url-search-params';
 
-import Aux from '../../hoc/Aux';
+import Aux from '../../components/hoc/Aux';
 import Calendar from '../Calendar/Calendar';
 import Summary from '../../components/Summary/Summary';
 import Totals from '../Totals/Totals';
