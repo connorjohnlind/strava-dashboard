@@ -4,6 +4,9 @@
 
 .Content {
   @extend .flexcol;
-  width: 100%;
+  justify-content: center;
+  padding: 3px;
+  color: #666;
+  font-size: .7rem;
   border: 1px dashed $strava-orange;
 }

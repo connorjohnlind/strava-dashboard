@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import dateFns from 'date-fns';
+import dateFns from 'date-fns';
 
 import classes from './Calendar.scss';
 import CalendarHeader from '../../../components/calendar/CalendarHeader/CalendarHeader';
@@ -8,17 +8,83 @@ import WeekHeader from '../../../components/calendar/WeekHeader/WeekHeader';
 import Day from '../../../components/calendar/Day/Day';
 
 class Calendar extends Component {
-  componentWillMount() {
+  state = {
+    currentMonth: dateFns.setDate(new Date(), 1),
+  }
+  prev = () => {
+    const prev = dateFns.subMonths(this.state.currentMonth, 1);
+    this.setState({ currentMonth: prev });
+  }
+  next = () => {
+    const next = dateFns.addMonths(this.state.currentMonth, 1);
+    this.setState({ currentMonth: next });
+  }
+  today = () => {
+    const today = dateFns.setDate(new Date(), 1);
+    this.setState({ currentMonth: today });
   }
   render() {
     // const typesArray = this.props.activities.map(activity => (activity.type));
+
+    const calendarDays = [];
+    let dateIncrement = dateFns.startOfWeek(this.state.currentMonth); // currentMonth set to the 1st
+
+    // for (let i = 0; i < 42; i += i) {
+    //   if (dateFns.getDate(dateIncrement) === 1) {
+    //     calendarDays.push(
+    //       <Day
+    //         date={dateIncrement}
+    //         currentMonth={this.state.currentMonth}
+    //         showMonth
+    //       />,
+    //     );
+    //   } else {
+    //     calendarDays.push(
+    //       <Day
+    //         date={dateIncrement}
+    //         currentMonth={this.state.currentMonth}
+    //       />,
+    //     );
+    //   }
+    //   dateIncrement = dateFns.addDays(dateIncrement, 1);
+    // }
+
+    let inc = 0;
+    while (inc < 42) {
+      if (dateFns.getDate(dateIncrement) === 1) {
+        calendarDays.push(
+          <Day
+            date={dateIncrement}
+            currentMonth={this.state.currentMonth}
+            showMonth
+          />,
+        );
+      } else {
+        calendarDays.push(
+          <Day
+            date={dateIncrement}
+            currentMonth={this.state.currentMonth}
+          />,
+        );
+      }
+      inc += 1;
+      dateIncrement = dateFns.addDays(dateIncrement, 1);
+    }
+
     return (
       <div className={classes.Card} >
         <h3>Calendar</h3>
         <div className={classes.Calendar}>
-          <CalendarHeader />
+          <CalendarHeader
+            currentMonth={this.state.currentMonth}
+            next={this.next}
+            today={this.today}
+            prev={this.prev}
+          />
           <WeekHeader />
-          <Day />
+          <div className={classes.Days}>
+            {calendarDays}
+          </div>
         </div>
       </div>
     );
