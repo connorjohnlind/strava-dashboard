@@ -29,28 +29,7 @@ class Calendar extends Component {
     const calendarDays = [];
     let dateIncrement = dateFns.startOfWeek(this.state.currentMonth); // currentMonth set to the 1st
 
-    // for (let i = 0; i < 42; i += i) {
-    //   if (dateFns.getDate(dateIncrement) === 1) {
-    //     calendarDays.push(
-    //       <Day
-    //         date={dateIncrement}
-    //         currentMonth={this.state.currentMonth}
-    //         showMonth
-    //       />,
-    //     );
-    //   } else {
-    //     calendarDays.push(
-    //       <Day
-    //         date={dateIncrement}
-    //         currentMonth={this.state.currentMonth}
-    //       />,
-    //     );
-    //   }
-    //   dateIncrement = dateFns.addDays(dateIncrement, 1);
-    // }
-
-    let inc = 0;
-    while (inc < 42) {
+    for (let i = 0; i < 42; i += 1) {
       if (dateFns.getDate(dateIncrement) === 1) {
         calendarDays.push(
           <Day
@@ -67,7 +46,6 @@ class Calendar extends Component {
           />,
         );
       }
-      inc += 1;
       dateIncrement = dateFns.addDays(dateIncrement, 1);
     }
 
