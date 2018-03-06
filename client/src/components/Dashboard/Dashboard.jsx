@@ -15,9 +15,9 @@ class Dashboard extends Component {
   componentWillMount() {
     const query = new URLSearchParams(window.location.search);
     if (query.get('code')) {
-      this.props.onAuth(query.get('code'));
+      this.props.onAuthInit(query.get('code'));
     } else if (localStorage.getItem('accessToken')) {
-      this.props.onAthleteGet(localStorage.getItem('accessToken'));
+      this.props.onAuthRenew(localStorage.getItem('accessToken'));
     } else {
       this.props.onAuthRevoke(); // cancels loading state
     }
@@ -59,8 +59,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onAthleteGet: accessToken => dispatch(actions.authRenew(accessToken)),
-  onAuth: codeQuery => dispatch(actions.authInit(codeQuery)),
+  onAuthInit: codeQuery => dispatch(actions.authInit(codeQuery)),
+  onAuthRenew: accessToken => dispatch(actions.authRenew(accessToken)),
   onAuthRevoke: () => dispatch(actions.authRevoke()),
 });
 
@@ -73,9 +73,8 @@ Dashboard.propTypes = {
   totals: PropTypes.shape({}),
   error: PropTypes.shape({}),
   authLoading: PropTypes.bool.isRequired,
-  onActivitiesGet: PropTypes.func.isRequired,
-  onAthleteGet: PropTypes.func.isRequired,
-  onAuth: PropTypes.func.isRequired,
+  onAuthRenew: PropTypes.func.isRequired,
+  onAuthInit: PropTypes.func.isRequired,
   onAuthRevoke: PropTypes.func.isRequired,
 };
 

@@ -12,7 +12,6 @@ class Topbar extends Component {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('totalsFilter');
     this.props.onAuthRevoke();
-    this.props.onActivitiesRevoke();
   }
   render() {
     let logout;
@@ -33,13 +32,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onActivitiesRevoke: () => dispatch(actions.activitiesRevoke()),
   onAuthRevoke: () => dispatch(actions.authRevoke()),
 });
 
 Topbar.propTypes = {
   accessToken: PropTypes.string,
-  onActivitiesRevoke: PropTypes.func.isRequired,
   onAuthRevoke: PropTypes.func.isRequired,
 };
 

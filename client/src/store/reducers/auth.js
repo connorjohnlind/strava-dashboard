@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/actionTypes';
+import { AUTH_SUCCESS, AUTH_REVOKE, AUTH_FAIL } from '../actions/types';
 import updateObject from '../utility';
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.AUTH_SUCCESS:
+    case AUTH_SUCCESS:
       return updateObject(state, {
         accessToken: action.accessToken,
         activities: action.activities,
@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
         error: null,
         loading: false,
       });
-    case actionTypes.AUTH_REVOKE:
+    case AUTH_REVOKE:
       return updateObject(state, {
         accessToken: null,
         activities: null,
@@ -30,7 +30,7 @@ const reducer = (state = initialState, action) => {
         error: null,
         loading: false,
       });
-    case actionTypes.AUTH_FAIL:
+    case AUTH_FAIL:
       return updateObject(state, {
         loading: false,
         error: action.error,

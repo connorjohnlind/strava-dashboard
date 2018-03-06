@@ -2,7 +2,6 @@ const axios = require('axios');
 
 module.exports = (app) => {
   app.get('/auth/strava', async (req, res) => {
-    console.log('beginning strava auth');
     if (!req.query.code) {
       res.status(400).send('No code provided');
     }

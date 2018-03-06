@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import * as actionTypes from './actionTypes';
+import { AUTH_SUCCESS, AUTH_REVOKE, AUTH_FAIL } from './types';
 
 export const authSuccess = (accessToken, athlete, totals, activities) => ({
-  type: actionTypes.AUTH_SUCCESS,
+  type: AUTH_SUCCESS,
   accessToken,
   activities,
   athlete,
@@ -11,11 +11,11 @@ export const authSuccess = (accessToken, athlete, totals, activities) => ({
 });
 
 export const authRevoke = () => ({
-  type: actionTypes.AUTH_REVOKE,
+  type: AUTH_REVOKE,
 });
 
 export const authFail = error => ({
-  type: actionTypes.AUTH_FAIL,
+  type: AUTH_FAIL,
   error,
 });
 
@@ -37,8 +37,8 @@ export const authInit = codeQuery => (async (dispatch) => {
 // for revists, where the token is stored in localStorage
 export const authRenew = token => (async (dispatch) => {
   try {
-    const athlete = axios.get(`https://www.strava.com/api/v3/athlete?access_token=${token}`);
-    const totals = axios.get(`https://www.strava.com/api/v3/athletes/${athlete.data.id}/stats?access_token=${token}`);
+    const athlete = await axios.get(`https://www.strava.com/api/v3/athlete?access_token=${token}`);
+    const totals = await axios.get(`https://www.strava.com/api/v3/athletes/${athlete.data.id}/stats?access_token=${token}`);
     dispatch(authSuccess(token, athlete.data, totals.data));
   } catch (error) {
     dispatch(authFail(error.response));
