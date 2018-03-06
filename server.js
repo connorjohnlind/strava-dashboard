@@ -4,10 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-// MongoDB
-require('./db/mongoose');
-require('./models/Demo');
-
 // Init
 const app = express();
 const port = process.env.PORT;

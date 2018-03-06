@@ -13,7 +13,7 @@ const insertDocument = (db, callback) => {
   collection.drop(() => {
     console.log('Wiped collection');
   });
-  collection.insert({ data: JSON.stringify(dummy) }, (err, result) => {
+  collection.insert({ data: dummy }, (err, result) => {
     assert.equal(err, null);
     assert.equal(1, result.result.n);
     assert.equal(1, result.ops.length);

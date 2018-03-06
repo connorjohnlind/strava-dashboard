@@ -1,17 +1,24 @@
-const mongoose = require('mongoose');
+require('../config/config');
+const { MongoClient } = require('mongodb');
 
-const Demo = mongoose.model('demo');
+const url = process.env.MONGODB_URI;
+const dbName = 'stravadash-demo';
+
+const findDocuments = (db, callback) => {
+  const collection = db.collection('demoData');
+  collection.find({}).toArray((err, docs) => {
+    callback(docs[0].data);
+  });
+};
 
 module.exports = (app) => {
-  app.post('/api/demo/', async (req, res) => {
-    const demo = new Demo({
-      data: req.body.text,
+  app.get('/api/demo/', (req, res) => {
+    MongoClient.connect(url, (err, client) => {
+      const db = client.db(dbName);
+      findDocuments(db, (data) => {
+        res.send({ data });
+        client.close();
+      });
     });
-    try {
-      await demo.save();
-      res.send('success');
-    } catch (e) {
-      res.status(400).send(e);
-    }
   });
 };
