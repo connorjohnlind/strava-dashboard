@@ -3,12 +3,12 @@ require('../config/config');
 const { MongoClient } = require('mongodb');
 const assert = require('assert');
 
-const url = 'mongodb://localhost:27017/StravaDash-demo';
-const dbName = 'StravaDash-demo';
+const url = process.env.MONGODB_URI;
+const dbName = 'stravadash-demo';
 
 const dummy = require('./demo.data');
 
-const insertDocuments = (db, callback) => {
+const insertDocument = (db, callback) => {
   const collection = db.collection('demoData');
   collection.drop(() => {
     console.log('Wiped collection');
@@ -28,7 +28,7 @@ MongoClient.connect(url, (err, client) => {
 
   const db = client.db(dbName);
 
-  insertDocuments(db, () => {
+  insertDocument(db, () => {
     client.close();
   });
 });
