@@ -51,5 +51,5 @@ export const auth = codeQuery => ((dispatch) => {
     .catch((error) => {
       dispatch(authFail(error.response));
     });
-  window.history.replaceState({}, document.title, '/');
+  // window.history.replaceState({}, document.title, '/');
 });

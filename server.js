@@ -13,6 +13,8 @@ app.use(bodyParser.json());
 app.use(express.static('client/dist'));
 
 // Routes
+require('./routes/authRoutes')(app);
+
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
 });
