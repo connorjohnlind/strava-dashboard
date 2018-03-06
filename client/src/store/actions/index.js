@@ -1,10 +1,5 @@
 export {
-  auth,
+  authInit,
+  authRenew,
   authRevoke,
-  athleteGet,
 } from './auth';
-
-export {
-  activitiesGet,
-  activitiesRevoke,
-} from './activities';

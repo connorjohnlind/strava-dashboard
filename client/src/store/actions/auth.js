@@ -2,9 +2,10 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 
-export const authSuccess = (accessToken, athlete, totals) => ({
+export const authSuccess = (accessToken, athlete, totals, activities) => ({
   type: actionTypes.AUTH_SUCCESS,
   accessToken,
+  activities,
   athlete,
   totals,
 });
@@ -18,38 +19,28 @@ export const authFail = error => ({
   error,
 });
 
-// extends the state with stats dataset after athelteGet
-export const totalsGet = (accessToken, athleteData) => ((dispatch) => {
-  axios.get(`https://www.strava.com/api/v3/athletes/${athleteData.id}/stats?access_token=${accessToken}`)
-    .then((res) => {
-      dispatch(authSuccess(accessToken, athleteData, res.data));
-    })
-    .catch((error) => {
-      dispatch(authFail(error.response));
-    });
+// handles the oAuth token exchange on the backend
+export const authInit = codeQuery => (async (dispatch) => {
+  try {
+    const auth = await axios.get(`/auth/strava?code=${codeQuery}`);
+    const athlete = await axios.get(`https://www.strava.com/api/v3/athlete?access_token=${auth.data.token}`);
+    const totals = await axios.get(`https://www.strava.com/api/v3/athletes/${athlete.data.id}/stats?access_token=${auth.data.token}`);
+    const activities = await axios.get(`https://www.strava.com/api/v3/athlete/activities?access_token=${auth.data.token}&per_page=200`);
+    dispatch(authSuccess(auth.data.token, athlete.data, totals.data, activities.data));
+    localStorage.setItem('accessToken', auth.data.token);
+  } catch (error) {
+    dispatch(authFail(error.response));
+  }
+  window.history.replaceState({}, document.title, '/');
 });
 
-// extends the state with the stats dataset after oAuth
-export const athleteGet = accessToken => ((dispatch) => {
-  axios.get(`https://www.strava.com/api/v3/athlete?access_token=${accessToken}`)
-    .then((res) => {
-      dispatch(totalsGet(accessToken, res.data));
-    })
-    .catch((error) => {
-      dispatch(authFail(error.response));
-    });
-});
-
-// handles the oAuth token exchange
-// receives a query parameter and outputs an accessToken from the Strava Auth API
-export const auth = codeQuery => ((dispatch) => {
-  axios.post(`https://www.strava.com/oauth/token?client_id=23058&client_secret=7acf3779503a1e2f856a4574d3f7fbc2d22090f7&code=${codeQuery}`)
-    .then((res) => {
-      localStorage.setItem('accessToken', res.data.access_token);
-      dispatch(athleteGet(res.data.access_token));
-    })
-    .catch((error) => {
-      dispatch(authFail(error.response));
-    });
-  // window.history.replaceState({}, document.title, '/');
+// for revists, where the token is stored in localStorage
+export const authRenew = token => (async (dispatch) => {
+  try {
+    const athlete = axios.get(`https://www.strava.com/api/v3/athlete?access_token=${token}`);
+    const totals = axios.get(`https://www.strava.com/api/v3/athletes/${athlete.data.id}/stats?access_token=${token}`);
+    dispatch(authSuccess(token, athlete.data, totals.data));
+  } catch (error) {
+    dispatch(authFail(error.response));
+  }
 });

@@ -22,15 +22,6 @@ class Dashboard extends Component {
       this.props.onAuthRevoke(); // cancels loading state
     }
   }
-  componentDidUpdate() {
-    // check if calendar hasn't loaded
-    // this lifecycle method 'lazy loads' the data after the update from auth
-    // alternatively, could add activities to the same auth reducer, and chain the GET requests,
-    // but this would add 500+ms to the initial load
-    if (!this.props.activities && this.props.accessToken) {
-      this.props.onActivitiesGet(this.props.accessToken);
-    }
-  }
   render() {
     let dashboard;
     if (this.props.error) {
@@ -61,16 +52,15 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
   accessToken: state.auth.accessToken,
   athlete: state.auth.athlete,
-  activities: state.activities.data,
+  activities: state.auth.activities,
   totals: state.auth.totals,
   error: state.auth.error,
   authLoading: state.auth.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onActivitiesGet: accessToken => dispatch(actions.activitiesGet(accessToken)),
-  onAthleteGet: accessToken => dispatch(actions.athleteGet(accessToken)),
-  onAuth: codeQuery => dispatch(actions.auth(codeQuery)),
+  onAthleteGet: accessToken => dispatch(actions.authRenew(accessToken)),
+  onAuth: codeQuery => dispatch(actions.authInit(codeQuery)),
   onAuthRevoke: () => dispatch(actions.authRevoke()),
 });
 

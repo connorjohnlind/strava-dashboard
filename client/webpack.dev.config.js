@@ -6,6 +6,12 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     historyApiFallback: true,
+    proxy: {
+      '/auth/**': 'http://localhost:3000',
+      secure: false,
+      changeOrigin: true,
+      logLevel: 'debug',
+    },
   },
   entry: './src/index.jsx',
   output: {

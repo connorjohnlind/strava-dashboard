@@ -10,12 +10,11 @@ import thunk from 'redux-thunk';
 import './index.scss';
 import App from './App';
 import auth from './store/reducers/auth';
-import activities from './store/reducers/activities';
 import favicon from './assets/favicon.ico';
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const rootReducer = combineReducers({ auth, activities });
+const rootReducer = combineReducers({ auth });
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 /* eslint-enable */
 

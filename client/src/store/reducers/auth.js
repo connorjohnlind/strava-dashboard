@@ -3,6 +3,7 @@ import updateObject from '../utility';
 
 const initialState = {
   accessToken: null, // existing localStorage token is checked in componentWillMount
+  activities: null,
   athlete: null,
   totals: null,
   error: null,
@@ -14,6 +15,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.AUTH_SUCCESS:
       return updateObject(state, {
         accessToken: action.accessToken,
+        activities: action.activities,
         athlete: action.athlete,
         totals: action.totals,
         error: null,
@@ -22,6 +24,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.AUTH_REVOKE:
       return updateObject(state, {
         accessToken: null,
+        activities: null,
         athlete: null,
         totals: null,
         error: null,
