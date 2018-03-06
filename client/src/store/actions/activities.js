@@ -17,7 +17,7 @@ export const activitiesFail = error => ({
 });
 
 export const activitiesGet = accessToken => ((dispatch) => {
-  // Strava API Limits to 200 activities per request, found through Postman
+  // Strava API Limits to 200 activities per request
   axios.get(`https://www.strava.com/api/v3/athlete/activities?access_token=${accessToken}&per_page=200`)
     .then((res) => {
       dispatch(activitiesSuccess(res.data));

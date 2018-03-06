@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../UI/Button/Button';
 import dateFns from 'date-fns';
+import Button from '../../../UI/Button/Button';
 
 import classes from './CalendarHeader.scss';
 

@@ -1,9 +1,0 @@
-@import '../../../scss/base';
-@import '../../../scss/format';
-@import '../../../scss/variables';
-
-.Content {
-  @extend .flexcol;
-  width: 100%;
-  border: 1px dashed $strava-orange;
-}

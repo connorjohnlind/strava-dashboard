@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
 import classes from './Topbar.scss';
-import Button from '../../components/UI/Button/Button';
+import Button from '../UI/Button/Button';
 import PoweredLogo from '../../assets/api_logo_pwrdBy_strava_stack_light.png';
 
 class Topbar extends Component {
