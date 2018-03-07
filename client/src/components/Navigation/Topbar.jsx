@@ -27,8 +27,8 @@ class Topbar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  accessToken: state.auth.accessToken,
+const mapStateToProps = ({ auth }) => ({
+  accessToken: auth.accessToken,
 });
 
 const mapDispatchToProps = dispatch => ({

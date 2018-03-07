@@ -9,37 +9,39 @@ import Summary from './Summary/Summary';
 import Totals from './Totals/Totals';
 import Login from '../Login/Login';
 import Spinner from '../UI/Spinner/Spinner';
-import * as actions from '../../store/actions/index';
+import * as actions from '../../store/actions';
 
 class Dashboard extends Component {
   componentWillMount() {
     const query = new URLSearchParams(window.location.search);
     if (query.get('code')) {
-      this.props.onAuthInit(query.get('code'));
+      this.props.authInit(query.get('code'));
     } else if (localStorage.getItem('accessToken')) {
-      this.props.onAuthRenew(localStorage.getItem('accessToken'));
+      this.props.authRenew(localStorage.getItem('accessToken'));
     } else {
-      this.props.onAuthRevoke(); // cancels loading state
+      this.props.authRevoke(); // cancels loading state
     }
   }
   render() {
     let dashboard;
-    if (this.props.error) {
+    if (this.props.auth.error) {
       localStorage.removeItem('accessToken'); // prevents error message on a reload
-      dashboard = <Login error={this.props.error} />;
-    } else if (this.props.authLoading) {
+      dashboard = <Login error={this.auth.props.error} />;
+    } else if (this.props.auth.authLoading) {
       dashboard = <Spinner />;
-    } else if (!this.props.authLoading && !this.props.accessToken) {
+    } else if (!this.props.auth.authLoading && !this.props.auth.accessToken) {
       dashboard = <Login />;
     } else {
       dashboard = (
         <Aux>
-          <Summary athlete={this.props.athlete} totals={this.props.totals} />
-          <Totals totals={this.props.totals} />
+          <Summary athlete={this.props.auth.athlete} totals={this.props.auth.totals} />
+          <Totals totals={this.props.auth.totals} />
         </Aux>
       );
     }
-    const calendar = this.props.activities ? <Calendar activities={this.props.activities} /> : null;
+    const calendar = this.props.auth.activities
+      ? <Calendar activities={this.props.auth.activities} />
+      : null;
     return (
       <Aux>
         {dashboard}
@@ -49,41 +51,22 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  accessToken: state.auth.accessToken,
-  athlete: state.auth.athlete,
-  activities: state.auth.activities,
-  totals: state.auth.totals,
-  error: state.auth.error,
-  authLoading: state.auth.loading,
-});
-
-const mapDispatchToProps = dispatch => ({
-  onAuthInit: codeQuery => dispatch(actions.authInit(codeQuery)),
-  onAuthRenew: accessToken => dispatch(actions.authRenew(accessToken)),
-  onAuthRevoke: () => dispatch(actions.authRevoke()),
-});
-
 Dashboard.propTypes = {
-  accessToken: PropTypes.string,
-  activities: PropTypes.arrayOf(
-    PropTypes.shape({}),
-  ),
-  athlete: PropTypes.shape({}),
-  totals: PropTypes.shape({}),
-  error: PropTypes.shape({}),
-  authLoading: PropTypes.bool.isRequired,
-  onAuthRenew: PropTypes.func.isRequired,
-  onAuthInit: PropTypes.func.isRequired,
-  onAuthRevoke: PropTypes.func.isRequired,
+  // auth reducer
+  auth: PropTypes.shape({
+    accessToken: PropTypes.string,
+    activities: PropTypes.arrayOf(
+      PropTypes.shape({}),
+    ),
+    athlete: PropTypes.shape({}),
+    totals: PropTypes.shape({}),
+    error: PropTypes.shape({}),
+    authLoading: PropTypes.bool.isRequired,
+  }).isRequired,
+  // auth actions
+  authRenew: PropTypes.func.isRequired,
+  authInit: PropTypes.func.isRequired,
+  authRevoke: PropTypes.func.isRequired,
 };
 
-Dashboard.defaultProps = {
-  accessToken: null,
-  activities: null,
-  athlete: null,
-  totals: null,
-  error: null,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(({ auth }) => ({ auth }), actions)(Dashboard);

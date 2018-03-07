@@ -33,6 +33,7 @@ class Calendar extends Component {
       if (dateFns.getDate(dateIncrement) === 1) {
         calendarDays.push(
           <Day
+            key={dateIncrement}
             date={dateIncrement}
             currentMonth={this.state.currentMonth}
             showMonth
@@ -41,6 +42,7 @@ class Calendar extends Component {
       } else {
         calendarDays.push(
           <Day
+            key={dateIncrement}
             date={dateIncrement}
             currentMonth={this.state.currentMonth}
           />,

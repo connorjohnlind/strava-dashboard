@@ -7,7 +7,7 @@ const initialState = {
   athlete: null,
   totals: null,
   error: null,
-  loading: true, // since oAuth is a redirect, set initial loading state to true
+  authLoading: true, // since oAuth is a redirect, set initial loading state to true
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
         athlete: action.athlete,
         totals: action.totals,
         error: null,
-        loading: false,
+        authLoading: false,
       });
     case AUTH_REVOKE:
       return updateObject(state, {
@@ -28,11 +28,11 @@ const reducer = (state = initialState, action) => {
         athlete: null,
         totals: null,
         error: null,
-        loading: false,
+        authLoading: false,
       });
     case AUTH_FAIL:
       return updateObject(state, {
-        loading: false,
+        authLoading: false,
         error: action.error,
       });
     default:
