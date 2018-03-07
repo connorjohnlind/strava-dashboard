@@ -8,9 +8,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/auth/**': 'http://localhost:3000',
-      secure: false,
-      changeOrigin: true,
-      logLevel: 'debug',
+      '/api/**': 'http://localhost:3000',
     },
   },
   entry: './src/index.jsx',
