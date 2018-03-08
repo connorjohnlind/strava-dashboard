@@ -5,28 +5,17 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 import classes from './Totals.scss';
 import Filters from './Filters/Filters';
-import Chart from './Total/Chart/Chart';
-import Total from './Total/Total';
+import Charts from './Charts/Charts';
 import Aux from '../../hoc/Aux';
 
-import { sportTypes, rangeTypes } from './Filters/filterTypes';
+import { rangeTypes } from './Filters/filterTypes';
 
 class Totals extends Component {
-  componentWillMount() {
-    // const localStorageState = JSON.parse(localStorage.getItem('totalsFilter'));
-    // this.setState({ ...this.state, ...localStorageState });
-  }
-  renderTotals() {
-    const chart = null;
+  renderCharts() {
     const activeTotals = rangeTypes.map((range) => {
       if (this.props.totals[range.key]) {
         return (
-          <Total
-            key={`${range.key}_totals`}
-            type={range.key}
-          >
-            {chart}
-          </Total>
+          <Charts key={range.key} id={range.key} label={range.label} />
         );
       }
       return null;
@@ -39,7 +28,7 @@ class Totals extends Component {
         <h3>Totals</h3>
         <Filters />
         <div className={classes.Main}>
-          {this.renderTotals()}
+          {this.renderCharts()}
         </div>
       </div>
     );
