@@ -26,7 +26,7 @@ class Dashboard extends Component {
     let dashboard;
     if (this.props.auth.error) {
       localStorage.removeItem('accessToken'); // prevents error message on a reload
-      dashboard = <Login error={this.auth.props.error} />;
+      dashboard = <Login error={this.props.auth.error} />;
     } else if (this.props.auth.authLoading) {
       dashboard = <Spinner />;
     } else if (!this.props.auth.authLoading && !this.props.auth.accessToken) {
