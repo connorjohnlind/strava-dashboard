@@ -25,10 +25,29 @@ class PieChart extends Component {
 
     return sportCounts;
   }
+  renderPiechart() {
+    console.log(this);
+    return (
+      <svg viewBox="0 0 42 42" className={classes.donut}>
+        <circle className={classes.donutHole} />
+        <circle className={[classes.donutSegment, classes.run].join(' ')} strokeDasharray="60 40" strokeDashoffset="25" />
+        <circle className={[classes.donutSegment, classes.ride].join(' ')} strokeDasharray="20 80" strokeDashoffset="65" />
+        <circle className={[classes.donutSegment, classes.swim].join(' ')} strokeDasharray="20 80" strokeDashoffset="45" />
+        <g className={classes.chartText}>
+          <text x="50%" y="50%" className={classes.chartNumber}>
+            100
+          </text>
+          <text x="50%" y="50%" className={classes.chartLabel}>
+            Activities
+          </text>
+        </g>
+      </svg>
+    );
+  }
   render() {
     return (
-      <div className={classes.Content}>
-        {this.renderCounts()}
+      <div className={classes.content}>
+        {this.renderPiechart()}
       </div>
     );
   }

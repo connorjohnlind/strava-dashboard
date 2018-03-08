@@ -2,8 +2,60 @@
 @import '../../../../../scss/format';
 @import '../../../../../scss/variables';
 
-.Content {
+.content {
   @extend .flexcol;
   width: 100%;
   border: 1px dashed $strava-orange;
+}
+
+.donut {
+	width: 100%;
+	height: 100%;
+}
+
+.donutHole {
+	cx: 21;
+	cy: 21;
+	r: 15.91549430918954;
+	fill: #bbb;
+}
+
+.donutSegment {
+	cx: 21;
+	cy: 21;
+	r: 15.91549430918954;
+	fill: transparent;
+	stroke-width: 4;
+}
+
+.run {
+	stroke: #BDD6BA;
+}
+
+.ride {
+	stroke: #DFD7E9;
+}
+
+.swim {
+	stroke: #ACD2E4;
+}
+
+
+.chartText {
+  font: 16px/1.4em Arial, sans-serif;
+  fill: #000;
+  transform: translateY(0.25em);
+}
+
+.chartNumber {
+  font-size: 0.6em;
+  line-height: 1;
+  text-anchor: middle;
+  transform: translateY(-0.25em);
+}
+
+.chartLabel {
+  font-size: 0.2em;
+  text-anchor: middle;
+  transform: translateY(0.7em);
 }
