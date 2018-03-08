@@ -1,7 +1,7 @@
 export const sportTypes = [
-  { label: 'Rides', key: 'ride' },
-  { label: 'Runs', key: 'run' },
-  { label: 'Swims', key: 'swim' },
+  { label: 'Ride', key: 'ride' },
+  { label: 'Run', key: 'run' },
+  { label: 'Swim', key: 'swim' },
 ];
 
 export const rangeTypes = [

@@ -6,7 +6,6 @@ import Aux from '../hoc/Aux';
 import Calendar from '../Dashboard/Calendar/Calendar';
 import Summary from '../Dashboard/Summary/Summary';
 import Totals from '../Dashboard/Totals/Totals';
-import Login from '../Login/Login';
 import Spinner from '../UI/Spinner/Spinner';
 import * as actions from '../../store/actions';
 
@@ -24,7 +23,7 @@ class Demo extends Component {
       dashboard = (
         <Aux>
           <Summary athlete={this.props.demo.athlete} totals={this.props.demo.totals} />
-          <Totals totals={this.props.demo.totals} />
+          <Totals />
         </Aux>
       );
     }

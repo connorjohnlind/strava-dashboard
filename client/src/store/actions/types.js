@@ -7,5 +7,5 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const DEMO_SUCCESS = 'DEMO_SUCCESS';
 export const DEMO_FAIL = 'DEMO_FAIL';
 
-// totals
+// filters
 export const TOGGLE_FILTER = 'TOGGLE_FILTER';

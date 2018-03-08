@@ -1,39 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
-import * as actions from '../../../../store/actions';
 import classes from './Charts.scss';
+import PieChart from './PieChart/PieChart';
+import Graph from './Graph/Graph';
 
-import { sportTypes } from '../Filters/filterTypes';
-
-class Charts extends Component {
-  renderCounts() {
-    const sportCounts = sportTypes.map((sportType) => {
-      if (this.props.totals[sportType.key]) {
-        return (
-          <p key={`${this.props.id}_${sportType.key}`}>{sportType.label} Count: {this.props.auth.totals[`${this.props.id}_${sportType.key}_totals`].count}</p>
-        );
-      }
-      return null;
-    });
-
-    return sportCounts;
-  }
-  render() {
-    return (
-      <div className={classes.Content}>
-        <h3>{`${this.props.label}`}</h3>
-        {this.renderCounts()}
-      </div>
-    );
-  }
-}
-
-Charts.propTypes = {
-  totals: PropTypes.shape({
-
-  }),
+const Charts = (props) => {
+  return (
+    <div className={classes.Content}>
+      <h3>{`${props.label}`}</h3>
+      <PieChart key={`${props.range}_piechart`} range={props.range} />
+      <Graph key={`${props.range}_graph`} range={props.range} />
+    </div>
+  );
 };
 
-export default connect(({ auth, totals }) => ({ auth, totals }), actions)(Charts);
+Charts.propTypes = {};
+
+export default Charts;

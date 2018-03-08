@@ -35,7 +35,7 @@ class Dashboard extends Component {
       dashboard = (
         <Aux>
           <Summary athlete={this.props.auth.athlete} totals={this.props.auth.totals} />
-          <Totals totals={this.props.auth.totals} />
+          <Totals />
           <Calendar activities={this.props.auth.activities} />
         </Aux>
       );

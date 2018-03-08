@@ -15,7 +15,7 @@ const Filters = (props) => {
   const sportButtons = sportTypes.map(sportType => (
     <Button
       key={`${sportType.key}_button`}
-      active={props.totals[sportType.key]===true}
+      active={props.filters[sportType.key]===true}
       btnType="Filter"
       clicked={() => { props.toggleFilter(sportType.key); }}
     >{sportType.label}
@@ -26,7 +26,7 @@ const Filters = (props) => {
   const rangeButtons = rangeTypes.map(rangeType => (
     <Button
       key={`${rangeType.key}_button`}
-      active={props.totals[rangeType.key]===true}
+      active={props.filters[rangeType.key]===true}
       btnType="Filter"
       clicked={() => { props.toggleFilter(rangeType.key); }}
     >{rangeType.label}
@@ -36,4 +36,4 @@ const Filters = (props) => {
   return <div className={classes.Content}>{sportButtons}{rangeButtons}</div>;
 };
 
-export default connect(({ totals }) => ({ totals }), actions)(Filters);
+export default connect(({ filters }) => ({ filters }), actions)(Filters);

@@ -11,12 +11,12 @@ import './index.scss';
 import App from './App';
 import auth from './store/reducers/auth';
 import demo from './store/reducers/demo';
-import totals from './store/reducers/totals';
+import filters from './store/reducers/filters';
 import favicon from './assets/favicon.ico';
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const rootReducer = combineReducers({ auth, demo, totals });
+const rootReducer = combineReducers({ auth, demo, filters });
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 /* eslint-enable */
 

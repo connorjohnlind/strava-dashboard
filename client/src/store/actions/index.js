@@ -10,4 +10,4 @@ export {
 
 export {
   toggleFilter,
-} from './totals';
+} from './filters';

@@ -13,9 +13,9 @@ import { rangeTypes } from './Filters/filterTypes';
 class Totals extends Component {
   renderCharts() {
     const activeTotals = rangeTypes.map((range) => {
-      if (this.props.totals[range.key]) {
+      if (this.props.filters[range.key]) {
         return (
-          <Charts key={range.key} id={range.key} label={range.label} />
+          <Charts key={range.key} range={range.key} label={range.label} />
         );
       }
       return null;
@@ -27,27 +27,15 @@ class Totals extends Component {
       <div className={classes.Card} >
         <h3>Totals</h3>
         <Filters />
-        <div className={classes.Main}>
-          {this.renderCharts()}
-        </div>
+        <div className={classes.Main}>{this.renderCharts()}</div>
       </div>
     );
   }
 }
 
 Totals.propTypes = {
-  totals: PropTypes.shape({
-    biggest_ride_distance: PropTypes.number,
-    recent_ride_totals: PropTypes.shape({}),
-    recent_run_totals: PropTypes.shape({}),
-    recent_swim_totals: PropTypes.shape({}),
-    ytd_ride_totals: PropTypes.shape({}),
-    ytd_run_totals: PropTypes.shape({}),
-    ytd_swim_totals: PropTypes.shape({}),
-    all_ride_totals: PropTypes.shape({}),
-    all_run_totals: PropTypes.shape({}),
-    all_swim_totals: PropTypes.shape({}),
+  filters: PropTypes.shape({
   }).isRequired,
 };
 
-export default connect(({ totals }) => ({ totals }), actions)(Totals);
+export default connect(({ filters }) => ({ filters }), actions)(Totals);
