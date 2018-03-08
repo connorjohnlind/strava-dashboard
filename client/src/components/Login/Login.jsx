@@ -28,6 +28,7 @@ const Login = (props) => {
         className={classes.StravaConnect}
         alt="Strava Connect"
       />
+      <p>Don&#39;t have Strava? Check out the <a href="/demo">demo</a>.</p>
     </div>
   );
 };

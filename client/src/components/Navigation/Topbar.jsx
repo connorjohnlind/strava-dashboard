@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import * as actions from '../../store/actions/index';
 import classes from './Topbar.scss';
@@ -11,12 +12,17 @@ class Topbar extends Component {
   logoutHandler = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('totalsFilter');
-    this.props.onAuthRevoke();
+    this.props.authRevoke();
+  }
+  exitDemoHandler = () => {
+    this.props.history.push('/');
   }
   render() {
     let logout;
-    if (this.props.accessToken) {
+    if (this.props.auth.accessToken) {
       logout = <Button clicked={this.logoutHandler}>Logout</Button>;
+    } else if (window.location.href.indexOf('demo') > -1) {
+      logout = <Button clicked={this.exitDemoHandler}>Exit</Button>;
     }
     return (
       <div className={classes.Topbar}>
@@ -27,21 +33,13 @@ class Topbar extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({
-  accessToken: auth.accessToken,
-});
-
-const mapDispatchToProps = dispatch => ({
-  onAuthRevoke: () => dispatch(actions.authRevoke()),
-});
-
 Topbar.propTypes = {
   accessToken: PropTypes.string,
-  onAuthRevoke: PropTypes.func.isRequired,
+  authRevoke: PropTypes.func.isRequired,
 };
 
 Topbar.defaultProps = {
   accessToken: null,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Topbar);
+export default connect(({ auth }) => ({ auth }), actions)(withRouter(Topbar));

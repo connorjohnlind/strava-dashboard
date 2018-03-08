@@ -17,7 +17,7 @@ class Demo extends Component {
   render() {
     let dashboard;
     if (this.props.demo.error) {
-      dashboard = <Login error={this.demo.props.error} />;
+      dashboard = <div>{this.demo.props.error}</div>;
     } else if (this.props.demo.demoLoading) {
       dashboard = <Spinner />;
     } else {
