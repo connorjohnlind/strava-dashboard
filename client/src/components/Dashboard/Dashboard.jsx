@@ -36,18 +36,11 @@ class Dashboard extends Component {
         <Aux>
           <Summary athlete={this.props.auth.athlete} totals={this.props.auth.totals} />
           <Totals totals={this.props.auth.totals} />
+          <Calendar activities={this.props.auth.activities} />
         </Aux>
       );
     }
-    const calendar = this.props.auth.activities
-      ? <Calendar activities={this.props.auth.activities} />
-      : null;
-    return (
-      <Aux>
-        {dashboard}
-        {calendar}
-      </Aux>
-    );
+    return <Aux>{dashboard}</Aux>;
   }
 }
 

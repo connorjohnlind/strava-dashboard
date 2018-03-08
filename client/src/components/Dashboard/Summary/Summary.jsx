@@ -10,7 +10,6 @@ const Summary = props => (
       <p><strong>{`${props.athlete.firstname} ${props.athlete.lastname}`}</strong></p>
       <p>{`${props.athlete.city}, ${props.athlete.state}`}</p>
       <p>{`Following: ${props.athlete.friend_count} | Followers: ${props.athlete.follower_count}`}</p>
-      <p>{`Biggest Ride: ${props.totals.biggest_ride_distance}`}</p>
     </div>
   </div>
 );
@@ -25,14 +24,10 @@ Summary.propTypes = {
     follower_count: PropTypes.number,
     friend_count: PropTypes.number,
   }),
-  totals: PropTypes.shape({
-    biggest_ride_distance: PropTypes.number,
-  }),
 };
 
 Summary.defaultProps = {
   athlete: null,
-  totals: null,
 };
 
 export default Summary;

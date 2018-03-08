@@ -1,3 +1,5 @@
+@import './variables';
+
 .flexcol {
     display: flex;
     flex-direction: column;
@@ -8,4 +10,16 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.flexcoltorow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (min-width: $ipad-breakpoint) {
+  .flexcoltorow {
+    flex-direction: row;
+  }
 }

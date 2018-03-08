@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import classes from './Totals.scss';
 import Button from '../../UI/Button/Button';
 import Filters from '../../UI/Filters/Filters';
-import SportTotals from './SportTotals/SportTotals';
-import Chart from './SportTotals/Chart/Chart';
+import Chart from './Total/Chart/Chart';
+import Total from './Total/Total';
+import Aux from '../../hoc/Aux';
 
 // label is rendered in DOM, key mirrors the Strava API
 const sportTypes = [
@@ -35,7 +36,7 @@ class Totals extends Component {
     const localStorageState = JSON.parse(localStorage.getItem('totalsFilter'));
     this.setState({ ...this.state, ...localStorageState });
   }
-  render() {
+  renderMenuButtons() {
     localStorage.setItem('totalsFilter', JSON.stringify({ ...this.state }));
     // iterate through the sportTypes array to create buttons
     const sportButtons = sportTypes.map(sportType => (
@@ -59,50 +60,57 @@ class Totals extends Component {
       </Button>
     ));
 
-    // iterate through the sportTypes array to create charts
-    // note: duplicated sportType iterator from above, chosen for readibility
-    const sportTotals = sportTypes.map((sportType) => {
-      // check if the sportType is active in the state
-      if (this.state[sportType.key]) {
-        const charts = totalTypes.map((totalType) => {
-          // check if the totalType is active in the state, and create a chart for it
-          if (this.state[totalType.key]) {
+    return <Aux>{sportButtons}{totalsButtons}</Aux>;
+  }
+  renderTotals() {
+    const totals = totalTypes.map((totalType) => {
+      // loop through totaltypes, render a Total if found
+      // add sport charts to the Total that contain the sport+totalType as the header
+      if (this.state[totalType.key]) {
+        const charts = sportTypes.map((sportType) => {
+          if (this.state[sportType.key]) {
             return (
               <Chart
-                key={`${totalType.key}_totals`}
-                label={totalType.label}
+                key={`${sportType.key}_totals`}
+                label={sportType.label}
                 data={this.props.totals[`${totalType.key}_${sportType.key}_totals`]}
               />
             );
           }
           return null;
         });
+
+        // instead: filter out the sportTypes based on the state variables
+        // send those active sport types to the chart as a prop, and deal with it there
+
         return (
-          <SportTotals key={`${sportType.key}_total`} sport={sportType.label} totalTypes={totalTypes}>
+          <Total
+            key={`${totalType.key}_totals`}
+            type={totalType.label}
+            sportTypes={sportTypes}
+          >
             {charts}
-          </SportTotals>
+          </Total>
         );
       }
       return null;
     });
-
+    return <Aux>{totals}</Aux>;
+  }
+  render() {
     return (
       <div className={classes.Card} >
         <h3>Totals</h3>
-        <Filters>
-          {sportButtons}
-          {totalsButtons}
-        </Filters>
-        {sportTotals}
-        <p>{`Biggest Ride: ${this.props.totals.biggest_ride_distance}`}</p>
+        <Filters>{this.renderMenuButtons()}</Filters>
+        <div className={classes.Main}>
+          {this.renderTotals()}
+        </div>
       </div>
     );
   }
 }
 
 Totals.propTypes = {
-  // from the Strava API v3
-  // the above sportTypes and totalTypes arrays refer to this strucutre
   totals: PropTypes.shape({
     biggest_ride_distance: PropTypes.number,
     recent_ride_totals: PropTypes.shape({}),

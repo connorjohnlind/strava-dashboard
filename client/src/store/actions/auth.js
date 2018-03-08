@@ -37,12 +37,10 @@ export const authInit = codeQuery => (async (dispatch) => {
 // for revists, where the token is stored in localStorage
 export const authRenew = token => (async (dispatch) => {
   try {
-    console.log('trying renew')
     const athlete = await axios.get(`https://www.strava.com/api/v3/athlete?access_token=${token}`);
     const totals = await axios.get(`https://www.strava.com/api/v3/athletes/${athlete.data.id}/stats?access_token=${token}`);
     dispatch(authSuccess(token, athlete.data, totals.data));
   } catch (error) {
-    console.log('found error')
     dispatch(authFail(error.response));
   }
 });

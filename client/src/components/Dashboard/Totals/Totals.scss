@@ -8,3 +8,8 @@
   margin-top: 40px;
   padding-top: 0;
 }
+
+.Main {
+  @extend .flexcoltorow;
+  width: 100%;
+}
