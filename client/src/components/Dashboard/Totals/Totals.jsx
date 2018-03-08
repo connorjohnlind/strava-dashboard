@@ -63,33 +63,37 @@ class Totals extends Component {
     return <Aux>{sportButtons}{totalsButtons}</Aux>;
   }
   renderTotals() {
+    let chart = null;
+    const activeSports = [];
+    sportTypes.forEach((sportType) => {
+      if (this.state[sportType.key]) {
+        activeSports.push(sportType.key);
+      }
+    });
+
     const totals = totalTypes.map((totalType) => {
       // loop through totaltypes, render a Total if found
-      // add sport charts to the Total that contain the sport+totalType as the header
       if (this.state[totalType.key]) {
-        const charts = sportTypes.map((sportType) => {
-          if (this.state[sportType.key]) {
-            return (
-              <Chart
-                key={`${sportType.key}_totals`}
-                label={sportType.label}
-                data={this.props.totals[`${totalType.key}_${sportType.key}_totals`]}
-              />
-            );
-          }
-          return null;
+        const data = {};
+
+        activeSports.forEach((sport) => {
+          data[sport] = this.props.totals[`${totalType.key}_${sport}_totals`];
         });
 
-        // instead: filter out the sportTypes based on the state variables
-        // send those active sport types to the chart as a prop, and deal with it there
-
+        chart = (
+          <Chart
+            key={`${totalType.key}_totals_chart`}
+            label={totalType.label}
+            totals={data}
+          />
+        );
         return (
           <Total
             key={`${totalType.key}_totals`}
             type={totalType.label}
             sportTypes={sportTypes}
           >
-            {charts}
+            {chart}
           </Total>
         );
       }
