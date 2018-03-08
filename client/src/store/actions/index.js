@@ -7,3 +7,7 @@ export {
 export {
   demoInit,
 } from './demo';
+
+export {
+  toggleFilter,
+} from './totals';
