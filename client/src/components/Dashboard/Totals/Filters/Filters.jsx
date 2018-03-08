@@ -6,13 +6,13 @@ import * as actions from '../../../../store/actions';
 import classes from './Filters.scss';
 import Button from '../../../UI/Button/Button';
 
-import { sportTypes, rangeTypes } from './filterTypes';
+import { sports, ranges } from './filterTypes';
 
 const Filters = (props) => {
   // localStorage.setItem('totalsFilter', JSON.stringify({ ...this.state }));
 
-  // iterate through the sportTypes array to create buttons
-  const sportButtons = sportTypes.map(sportType => (
+  // iterate through the sports array to create buttons
+  const sportButtons = sports.map(sportType => (
     <Button
       key={`${sportType.key}_button`}
       active={props.filters[sportType.key]===true}
@@ -23,7 +23,7 @@ const Filters = (props) => {
   ));
 
   // iterate through the totalTypes array to create buttons
-  const rangeButtons = rangeTypes.map(rangeType => (
+  const rangeButtons = ranges.map(rangeType => (
     <Button
       key={`${rangeType.key}_button`}
       active={props.filters[rangeType.key]===true}

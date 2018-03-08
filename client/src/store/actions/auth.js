@@ -39,7 +39,8 @@ export const authRenew = token => (async (dispatch) => {
   try {
     const athlete = await axios.get(`https://www.strava.com/api/v3/athlete?access_token=${token}`);
     const totals = await axios.get(`https://www.strava.com/api/v3/athletes/${athlete.data.id}/stats?access_token=${token}`);
-    dispatch(authSuccess(token, athlete.data, totals.data));
+    const activities = await axios.get(`https://www.strava.com/api/v3/athlete/activities?access_token=${token}&per_page=200`);
+    dispatch(authSuccess(token, athlete.data, totals.data, activities.data));
   } catch (error) {
     dispatch(authFail(error.response));
   }

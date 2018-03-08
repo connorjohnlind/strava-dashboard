@@ -8,11 +8,11 @@ import Filters from './Filters/Filters';
 import Charts from './Charts/Charts';
 import Aux from '../../hoc/Aux';
 
-import { rangeTypes } from './Filters/filterTypes';
+import { ranges } from './Filters/filterTypes';
 
 class Totals extends Component {
   renderCharts() {
-    const activeTotals = rangeTypes.map((range) => {
+    const activeTotals = ranges.map((range) => {
       if (this.props.filters[range.key]) {
         return (
           <Charts key={range.key} range={range.key} label={range.label} />

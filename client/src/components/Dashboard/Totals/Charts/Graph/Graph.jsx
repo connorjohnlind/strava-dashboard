@@ -4,15 +4,24 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../../../../store/actions';
 import classes from './Graph.scss';
+import Aux from '../../../../hoc/Aux';
 
-import { sportTypes } from '../../Filters/filterTypes';
+import { sports } from '../../Filters/filterTypes';
 
 class Graph extends Component {
   renderCounts() {
-    const sportCounts = sportTypes.map((sportType) => {
-      if (this.props.filters[sportType.key]) {
+    const { range, auth, demo } = this.props;
+    const mode = !demo.demoLoading ? demo : auth;
+
+    const sportCounts = sports.map((sport) => {
+      if (this.props.filters[sport.key]) {
+        const { label } = sport;
+        const { distance, moving_time } = mode.totals[`${range}_${sport.key}_totals`];
         return (
-          <p key={`${this.props.range}_${sportType.key}`}>{sportType.label} Distance: {(this.props.auth.totals[`${this.props.range}_${sportType.key}_totals`].distance * 0.000621371).toFixed(2)} miles</p>
+          <Aux>
+            <p key={`${range}_${sport.key}_distance`}>{label} Distance: {(distance * 0.000621371).toFixed(2)} miles</p>
+            <p key={`${range}_${sport.key}_time`}>{label} Time: {(moving_time * 0.0166667).toFixed(0)} minutes</p>
+          </Aux>
         );
       }
       return null;
@@ -35,4 +44,4 @@ Graph.propTypes = {
   }),
 };
 
-export default connect(({ auth, filters }) => ({ auth, filters }), actions)(Graph);
+export default connect(({ auth, filters, demo }) => ({ auth, filters, demo }), actions)(Graph);
