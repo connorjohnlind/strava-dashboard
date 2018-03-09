@@ -20,28 +20,31 @@ const Bars = (props) => {
     }
   });
 
-  // create bars scaled to the maximums array
-  const bars = entries.map((entry) => {
-    const key = entry[0];
-    const barData = Object.entries(entry[1]);
+  const barsByCategory = () => {
     const result = [];
-
     for (let i = 0; i < categories.length; i += 1) {
-      const percent = ((barData[i][1] / maximums[i]) * 100).toFixed(0);
-      result.push(
-        <div
-          key={`${key}_bar_${Math.random()}`}
-          className={[classes[`value-${percent}`], classes[key]].join(' ')}
-        />,
-      );
+      entries.forEach((entry) => {
+        const key = entry[0];
+        const barData = Object.entries(entry[1]);
+        // create bars scaled to the maximums array
+        const percent = ((barData[i][1] / maximums[i]) * 100).toFixed(0);
+        result.push(
+          <div
+            key={`${key}_bar_${Math.random()}`}
+            className={[classes[`value-${percent}`], classes[key]].join(' ')}
+          />,
+        );
+      });
     }
     return result;
-  });
+  };
+
+  const style = { gridTemplateColumns: `repeat(${barsByCategory().length}, 1fr)` };
 
   return (
-    <Aux>
-      {bars}
-    </Aux>
+    <div style={style} className={classes.graph}>
+      {barsByCategory()}
+    </div>
   );
 };
 

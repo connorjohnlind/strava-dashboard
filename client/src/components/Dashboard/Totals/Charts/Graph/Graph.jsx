@@ -31,9 +31,7 @@ class Graph extends Component {
   render() {
     return (
       <div className={classes.Content}>
-        <div className={classes.graph}>
-          <Bars data={this.getMetrics()} />
-        </div>
+        <Bars data={this.getMetrics()} />
       </div>
     );
   }

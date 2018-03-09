@@ -2,12 +2,23 @@
 @import '../../../../../../scss/format';
 @import '../../../../../../scss/variables';
 
+.graph {
+  display: grid;
+  //grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(100, 1fr);
+  grid-column-gap: 5px;
+  height: 100%;
+  width: 100%;
+  padding: 5px 10px;
+}
+
 [class*="value"] {
   border-radius: 5px 5px 0 0;
   transition: all .6s ease;
   background-color: #ff4136;
   grid-row-start: 1;
   grid-row-end: 101;
+  max-width: 65px;
 }
 
 .run {
