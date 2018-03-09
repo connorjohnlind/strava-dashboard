@@ -18,7 +18,7 @@ class Graph extends Component {
         const { label } = sport;
         const { distance, moving_time } = mode.totals[`${range}_${sport.key}_totals`];
         return (
-          <Aux>
+          <Aux key={`${range}_${sport.key}_distance/time`}>
             <p key={`${range}_${sport.key}_distance`}>{label} Distance: {(distance * 0.000621371).toFixed(2)} miles</p>
             <p key={`${range}_${sport.key}_time`}>{label} Time: {(moving_time * 0.0166667).toFixed(0)} minutes</p>
           </Aux>

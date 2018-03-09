@@ -8,34 +8,70 @@ import classes from './PieChart.scss';
 import { sports } from '../../Filters/filterTypes';
 
 class PieChart extends Component {
-  renderCounts() {
+  activeCounts() {
     const { range, auth, demo } = this.props;
     const mode = !demo.demoLoading ? demo : auth; // check if in demo mode
 
-    const sportCounts = sports.map((sport) => {
-      if (this.props.filters[sport.key]) {
-        const { label } = sport;
-        const { count } = mode.totals[`${range}_${sport.key}_totals`];
-        return (
-          <p key={`${range}_${sport.key}`}>{label} Count: {count}</p>
-        );
+    const activeCounts = {};
+
+    sports.forEach((sport) => {
+      const { key } = sport;
+      if (this.props.filters[key]) {
+        const { count } = mode.totals[`${range}_${key}_totals`];
+        activeCounts[key] = count;
       }
-      return null;
     });
 
-    return sportCounts;
+    return activeCounts;
+  }
+  totalCount() {
+    const activeCounts = this.activeCounts();
+    if (Object.keys(activeCounts).length > 0) {
+      return Object.values(activeCounts).reduce((a, b) => a + b);
+    }
+    return null;
+  }
+  renderCircles() {
+    const activeCounts = this.activeCounts();
+    const circles = [];
+
+    const totalCount = this.totalCount();
+
+    let strokeSum = 0;
+
+    for (let i = 0; i < Object.keys(activeCounts).length; i += 1) {
+      const sport = Object.keys(activeCounts)[i];
+
+      const stroke = !Object.keys(activeCounts)[i + 1] // if this is the last sport
+        ? 100 - strokeSum // close the remainder of the pie chart
+        : Math.floor((100 * activeCounts[sport]) / totalCount); // else calculate the percent
+
+      const remainder = 100 - stroke;
+      const offset = (i === 0) ? 25 : (100 - strokeSum) + 25;
+
+      circles.push(
+        <circle
+          key={`${sport}_circle_${Math.random()}`}
+          className={[classes.donutSegment, classes[sport]].join(' ')}
+          strokeDasharray={`${stroke} ${remainder}`}
+          strokeDashoffset={`${offset}`}
+        />,
+      );
+
+      strokeSum += stroke;
+    }
+
+    return circles;
   }
   renderPiechart() {
-    console.log(this);
+    const circles = this.renderCircles();
     return (
       <svg viewBox="0 0 42 42" className={classes.donut}>
         <circle className={classes.donutHole} />
-        <circle className={[classes.donutSegment, classes.run].join(' ')} strokeDasharray="60 40" strokeDashoffset="25" />
-        <circle className={[classes.donutSegment, classes.ride].join(' ')} strokeDasharray="20 80" strokeDashoffset="65" />
-        <circle className={[classes.donutSegment, classes.swim].join(' ')} strokeDasharray="20 80" strokeDashoffset="45" />
+        {circles}
         <g className={classes.chartText}>
           <text x="50%" y="50%" className={classes.chartNumber}>
-            100
+            {this.totalCount()}
           </text>
           <text x="50%" y="50%" className={classes.chartLabel}>
             Activities
@@ -47,7 +83,7 @@ class PieChart extends Component {
   render() {
     return (
       <div className={classes.content}>
-        {this.renderPiechart()}
+        {this.totalCount() > 0 ? this.renderPiechart() : null}
       </div>
     );
   }

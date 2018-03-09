@@ -1,6 +1,6 @@
 export const sports = [
-  { label: 'Ride', key: 'ride' },
   { label: 'Run', key: 'run' },
+  { label: 'Ride', key: 'ride' },
   { label: 'Swim', key: 'swim' },
 ];
 

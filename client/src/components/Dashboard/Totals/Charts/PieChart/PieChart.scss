@@ -17,7 +17,7 @@
 	cx: 21;
 	cy: 21;
 	r: 15.91549430918954;
-	fill: #bbb;
+	fill: $card-color;
 }
 
 .donutSegment {
@@ -29,21 +29,21 @@
 }
 
 .run {
-	stroke: #BDD6BA;
+	stroke: $run-color;
 }
 
 .ride {
-	stroke: #DFD7E9;
+	stroke: $ride-color;
 }
 
 .swim {
-	stroke: #ACD2E4;
+	stroke: $swim-color;
 }
 
 
 .chartText {
   font: 16px/1.4em Arial, sans-serif;
-  fill: #000;
+  // fill: #000;
   transform: translateY(0.25em);
 }
 
