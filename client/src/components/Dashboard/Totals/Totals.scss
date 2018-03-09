@@ -11,5 +11,6 @@
 
 .Main {
   @extend .flexcoltorow;
+  justify-content: center;
   width: 100%;
 }

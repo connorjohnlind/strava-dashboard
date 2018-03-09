@@ -16,7 +16,7 @@ const Filters = (props) => {
     <Button
       key={`${sportType.key}_button`}
       active={props.filters[sportType.key]===true}
-      btnType="Filter"
+      btnType={sportType.key ? sportType.key : 'Filter'}
       clicked={() => { props.toggleFilter(sportType.key); }}
     >{sportType.label}
     </Button>

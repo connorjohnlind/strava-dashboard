@@ -7,8 +7,8 @@ import Graph from './Graph/Graph';
 
 const Charts = (props) => {
   return (
-    <div className={classes.Content}>
-      <h3>{`${props.label}`}</h3>
+    <div className={classes.content}>
+      <h3 className={classes.title}>{`${props.label}`}</h3>
       <PieChart key={`${props.range}_piechart`} range={props.range} />
       <Graph key={`${props.range}_graph`} range={props.range} />
     </div>
