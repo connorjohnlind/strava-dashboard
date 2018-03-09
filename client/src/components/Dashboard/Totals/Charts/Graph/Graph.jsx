@@ -4,35 +4,36 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../../../../store/actions';
 import classes from './Graph.scss';
+import Bars from './Bars/Bars';
 import Aux from '../../../../hoc/Aux';
 
 import { sports } from '../../Filters/filterTypes';
 
 class Graph extends Component {
-  renderCounts() {
+  getMetrics() {
     const { range, auth, demo } = this.props;
-    const mode = !demo.demoLoading ? demo : auth;
+    const mode = !demo.demoLoading ? demo : auth; // check if in demo mode
 
-    const sportCounts = sports.map((sport) => {
-      if (this.props.filters[sport.key]) {
-        const { label } = sport;
+    const metrics = {};
+
+    sports.forEach((sport) => {
+      const { key } = sport;
+      if (this.props.filters[key]) {
         const { distance, moving_time } = mode.totals[`${range}_${sport.key}_totals`];
-        return (
-          <Aux key={`${range}_${sport.key}_distance/time`}>
-            <p key={`${range}_${sport.key}_distance`}>{label} Distance: {(distance * 0.000621371).toFixed(2)} miles</p>
-            <p key={`${range}_${sport.key}_time`}>{label} Time: {(moving_time * 0.0166667).toFixed(0)} minutes</p>
-          </Aux>
-        );
+        metrics[key] = {
+          miles: distance * 0.000621371,
+          mins: moving_time * 0.0166667,
+        };
       }
-      return null;
     });
-
-    return sportCounts;
+    return metrics;
   }
   render() {
     return (
       <div className={classes.Content}>
-        {this.renderCounts()}
+        <div className={classes.graph}>
+          <Bars data={this.getMetrics()} />
+        </div>
       </div>
     );
   }

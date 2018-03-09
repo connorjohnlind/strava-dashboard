@@ -1,0 +1,30 @@
+@import '../../../../../../scss/base';
+@import '../../../../../../scss/format';
+@import '../../../../../../scss/variables';
+
+.donutHole {
+	cx: 21;
+	cy: 21;
+	r: 15.91549430918954;
+	fill: $card-color;
+}
+
+.donutSegment {
+	cx: 21;
+	cy: 21;
+	r: 15.91549430918954;
+	fill: transparent;
+	stroke-width: 4;
+}
+
+.run {
+	stroke: $run-color;
+}
+
+.ride {
+	stroke: $ride-color;
+}
+
+.swim {
+	stroke: $swim-color;
+}
