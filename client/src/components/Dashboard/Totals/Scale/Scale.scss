@@ -5,22 +5,30 @@
 .content {
   @extend .flexcol;
   align-self: flex-end;
-  padding-bottom: 38px;
+  margin-bottom: 38px;
+  height: 210px;
+  justify-content: space-between;
 }
 
 .bar {
-  background-color: black;
+  background-color: grey;
   width: 1px;
-  height: 100px;
+  height: 60px;
 }
 
 .barEnd {
-  background-color: black;
+  background-color: grey;
   width: 20px;
   height: 1px;
 }
 
+.barWrapper {
+  @extend .flexcol;
+}
+
 .text {
+  color: grey;
   transform: rotate(-90deg);
   font-size: 8pt;
+  white-space: nowrap;
 }

@@ -59,9 +59,9 @@ class Totals extends Component {
         <h3>Totals</h3>
         <Filters />
         <div className={classes.main}>
-          <Scale label="scale" />
+          <Scale value={"300000"} label="miles" />
           {this.renderCharts()}
-          <Scale label="scale" />
+          <Scale value={"400000"} label="mins" />
         </div>
       </div>
     );
