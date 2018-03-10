@@ -3,7 +3,7 @@
 @import '../../../../../scss/variables';
 
 .Content {
-  @extend .flexcol;
+  @extend .flexrow;
   height: 200px;
   width: 100%;
   border: 1px dashed $strava-orange;

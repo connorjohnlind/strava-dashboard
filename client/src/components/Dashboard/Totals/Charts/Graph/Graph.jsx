@@ -10,28 +10,31 @@ import Aux from '../../../../hoc/Aux';
 import { sports } from '../../Filters/filterTypes';
 
 class Graph extends Component {
-  getMetrics() {
+  getCategories() {
     const { range, auth, demo } = this.props;
     const mode = !demo.demoLoading ? demo : auth; // check if in demo mode
 
-    const metrics = {};
+    const distances = {};
+    const times = {};
 
     sports.forEach((sport) => {
       const { key } = sport;
       if (this.props.filters[key]) {
         const { distance, moving_time } = mode.totals[`${range}_${sport.key}_totals`];
-        metrics[key] = {
-          miles: distance * 0.000621371,
-          mins: moving_time * 0.0166667,
-        };
+        distances[key] = distance * 0.000621371;
+        times[key] = moving_time * 0.0166667;
       }
     });
-    return metrics;
+
+    return [distances, times];
   }
   render() {
+    const categories = this.getCategories();
+
     return (
       <div className={classes.Content}>
-        <Bars data={this.getMetrics()} />
+        <Bars label="Distance" data={categories[0]} max={Math.max(...Object.values(categories[0]))} />
+        <Bars label="Time" data={categories[1]} max={Math.max(...Object.values(categories[1]))} />
       </div>
     );
   }
