@@ -6,6 +6,7 @@ import * as actions from '../../../store/actions';
 import classes from './Totals.scss';
 import Filters from './Filters/Filters';
 import Charts from './Charts/Charts';
+import Scale from './Scale/Scale';
 import Aux from '../../hoc/Aux';
 
 import { sports, ranges } from './Filters/filterTypes';
@@ -54,10 +55,14 @@ class Totals extends Component {
   }
   render() {
     return (
-      <div className={classes.Card} >
+      <div className={classes.card} >
         <h3>Totals</h3>
         <Filters />
-        <div className={classes.Main}>{this.renderCharts()}</div>
+        <div className={classes.main}>
+          <Scale label="scale" />
+          {this.renderCharts()}
+          <Scale label="scale" />
+        </div>
       </div>
     );
   }

@@ -1,0 +1,26 @@
+@import '../../../../scss/base';
+@import '../../../../scss/format';
+@import '../../../../scss/variables';
+
+.content {
+  @extend .flexcol;
+  align-self: flex-end;
+  padding-bottom: 38px;
+}
+
+.bar {
+  background-color: black;
+  width: 1px;
+  height: 100px;
+}
+
+.barEnd {
+  background-color: black;
+  width: 20px;
+  height: 1px;
+}
+
+.text {
+  transform: rotate(-90deg);
+  font-size: 8pt;
+}

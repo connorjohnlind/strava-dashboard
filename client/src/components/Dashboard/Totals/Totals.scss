@@ -2,14 +2,14 @@
 @import '../../../scss/format';
 @import '../../../scss/variables';
 
-.Card {
+.card {
   @extend .card;
   @extend .flexcol;
   margin-top: 40px;
   padding-top: 0;
 }
 
-.Main {
+.main {
   @extend .flexcoltorow;
   justify-content: center;
   width: 90%;
