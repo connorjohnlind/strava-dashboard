@@ -2,9 +2,20 @@
 @import '../../../../../scss/format';
 @import '../../../../../scss/variables';
 
-.Content {
+.content {
   @extend .flexrow;
-  height: 200px;
+  height: 300px;
   width: 100%;
-  border: 1px dashed $strava-orange;
+  padding: 0 15px;
+}
+
+.category {
+  @extend .flexcol;
+  height: 100%;
+  width: 100%;
+
+  p {
+    font-size: 10pt;
+    margin-top: 5px;
+  }
 }

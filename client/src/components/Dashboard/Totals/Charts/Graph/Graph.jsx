@@ -32,9 +32,15 @@ class Graph extends Component {
     const categories = this.getCategories();
 
     return (
-      <div className={classes.Content}>
-        <Bars label="Distance" data={categories[0]} max={Math.max(...Object.values(categories[0]))} />
-        <Bars label="Time" data={categories[1]} max={Math.max(...Object.values(categories[1]))} />
+      <div className={classes.content}>
+        <div className={classes.category}>
+          <Bars data={categories[0]} max={Math.max(...Object.values(categories[0]))} />
+          <p>Distance</p>
+        </div>
+        <div className={classes.category}>
+          <Bars data={categories[1]} max={Math.max(...Object.values(categories[1]))} />
+          <p>Time</p>
+        </div>
       </div>
     );
   }
