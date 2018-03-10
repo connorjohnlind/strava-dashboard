@@ -29,7 +29,7 @@
 
 .Filter {
   background-color: $app-background-color;
-  color: $strava-orange;
+  color: $strava-organge-light;
   width: 100%;
   font-size: 8pt;
 
@@ -38,11 +38,11 @@
   }
 
   &.Active {
-    background-color: $strava-orange;
+    background-color: $strava-organge-light;
     color: white;
   }
   &.Active:hover {
-    background-color: $strava-orange-hover;
+    background-color: $strava-orange-light-hover;
   }
 }
 
@@ -50,6 +50,7 @@
   @extend .Filter;
   background-color: $app-background-color;
   color: $run-color-darken;
+
   &:hover {
     background-color: $app-background-hover;
   }
@@ -67,6 +68,7 @@
   @extend .Filter;
   background-color: $app-background-color;
   color: $ride-color-darken;
+
   &:hover {
     background-color: $app-background-hover;
   }
@@ -84,6 +86,7 @@
   @extend .Filter;
   background-color: $app-background-color;
   color: $swim-color-darken;
+
   &:hover {
     background-color: $app-background-hover;
   }

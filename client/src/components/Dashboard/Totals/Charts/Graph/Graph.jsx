@@ -34,22 +34,16 @@ class Graph extends Component {
     return (
       <div className={classes.content}>
         <div className={classes.category}>
-          <Bars data={categories[0]} max={Math.max(...Object.values(categories[0]))} />
+          <Bars data={categories[0]} max={this.props.maximums.distance} />
           <p>Distance</p>
         </div>
         <div className={classes.category}>
-          <Bars data={categories[1]} max={Math.max(...Object.values(categories[1]))} />
+          <Bars data={categories[1]} max={this.props.maximums.time} />
           <p>Time</p>
         </div>
       </div>
     );
   }
 }
-
-Graph.propTypes = {
-  filters: PropTypes.shape({
-
-  }),
-};
 
 export default connect(({ auth, filters, demo }) => ({ auth, filters, demo }), actions)(Graph);
