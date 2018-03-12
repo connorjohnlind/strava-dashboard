@@ -17,8 +17,10 @@ const Bars = (props) => {
       <Bar
         key={`${key}_bar_${Math.random()}`}
         className={[classes[`value-${percent}`], classes[key]].join(' ')}
+        mouseIn={props.mouseIn}
+        mouseOut={props.mouseOut}
         value={barData}
-        units={props.units}
+        category={props.category}
       />
     );
   });

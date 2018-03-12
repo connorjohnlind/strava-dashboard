@@ -9,7 +9,3 @@ export const DEMO_FAIL = 'DEMO_FAIL';
 
 // filters
 export const TOGGLE_FILTER = 'TOGGLE_FILTER';
-
-// totals
-export const MOUSE_IN = 'MOUSE_IN';
-export const MOUSE_OUT = 'MOUSE_OUT';

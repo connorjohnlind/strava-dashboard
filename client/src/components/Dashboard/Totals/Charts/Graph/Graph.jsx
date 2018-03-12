@@ -10,6 +10,11 @@ import Aux from '../../../../hoc/Aux';
 import { sports } from '../../Filters/filterTypes';
 
 class Graph extends Component {
+  state = {
+    distance: null,
+    time: null,
+  }
+  // builds an object of categorgy objects with key: sport and value: value
   getCategories() {
     const { range, auth, demo } = this.props;
     const mode = !demo.demoLoading ? demo : auth; // check if in demo mode
@@ -28,18 +33,45 @@ class Graph extends Component {
 
     return { distances, times };
   }
+  // callback functions to respond to bar hover states
+  handleMouseIn = (value, category) => {
+    if (category === 'distance') {
+      this.setState({
+        distance: value,
+      });
+    } else if (category === 'time') {
+      this.setState({
+        time: value,
+      });
+    }
+  }
+  handleMouseOut = () => {
+    this.setState({ distance: null, time: null });
+  }
   render() {
     const categories = this.getCategories();
 
     return (
       <div className={classes.content}>
         <div className={classes.category}>
-          <Bars data={categories.distances} max={this.props.maximums.distance} units="miles" />
-          <p>Distance</p>
+          <Bars
+            data={categories.distances}
+            mouseIn={this.handleMouseIn}
+            mouseOut={this.handleMouseOut}
+            max={this.props.maximums.distance}
+            category="distance"
+          />
+          <p>{this.state.distance ? `${this.state.distance.toFixed(1)} mi` : 'Distance'}</p>
         </div>
         <div className={classes.category}>
-          <Bars data={categories.times} max={this.props.maximums.time} units="hours" />
-          <p>Time</p>
+          <Bars
+            data={categories.times}
+            mouseIn={this.handleMouseIn}
+            mouseOut={this.handleMouseOut}
+            max={this.props.maximums.time}
+            category="time"
+          />
+          <p>{this.state.time ? `${(this.state.time / 60).toFixed(1)} hr` : 'Time'}</p>
         </div>
       </div>
     );

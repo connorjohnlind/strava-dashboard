@@ -13,10 +13,10 @@ class PieChart extends Component {
     value: null,
     units: null,
   }
+  // builds an object with key: sport and value: activitiy county
   getCounts() {
     const { range, auth, demo } = this.props;
     const mode = !demo.demoLoading ? demo : auth; // check if in demo mode
-
     const activeCounts = {};
     sports.forEach((sport) => {
       const { key } = sport;
@@ -27,15 +27,17 @@ class PieChart extends Component {
     });
     return activeCounts;
   }
+  // callback functions to respond to circle hover states
   handleMouseIn = (value, units) => {
     this.setState({
       value,
-      units: `${units.substring(0, 1).toUpperCase()}${units.substring(1)}s`, // last minute formatting
+      units: `${units.substring(0, 1).toUpperCase()}${units.substring(1)}s`, // formatting
     });
   }
   handleMouseOut = () => {
     this.setState({ value: null, units: null });
   }
+  // helper function to get the total activity count
   totalCount() {
     const activeCounts = this.getCounts();
     if (Object.keys(activeCounts).length > 0) {
