@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import classes from './Summary.scss';
 
 const Summary = props => (
-  <div className={classes.Card} >
-    <img className={classes.Avatar} src={props.athlete.profile_medium} alt="Avatar" />
-    <div className={classes.Content}>
-      <p><strong>{`${props.athlete.firstname} ${props.athlete.lastname}`}</strong></p>
-      <p>{`${props.athlete.city}, ${props.athlete.state}`}</p>
-      <p>{`Following: ${props.athlete.friend_count} | Followers: ${props.athlete.follower_count}`}</p>
+  <div className={classes.card} >
+    <img className={classes.avatar} src={props.athlete.profile_medium} alt="Avatar" />
+    <div className={classes.content}>
+      <h3>{`${props.athlete.firstname} ${props.athlete.lastname}`}</h3>
+      <div className={classes.stats}>
+        <p>{`${props.athlete.city}, ${props.athlete.state}`}</p>
+        <p>{`Following: ${props.athlete.friend_count} | Followers: ${props.athlete.follower_count}`}</p>
+      </div>
     </div>
   </div>
 );

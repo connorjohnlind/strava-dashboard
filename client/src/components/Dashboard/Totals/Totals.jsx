@@ -58,9 +58,14 @@ class Totals extends Component {
       <div className={classes.card} >
         <h3>Stats and Totals</h3>
         <div className={classes.main}>
-          <Scale show value={"300000"} label="miles" />
+          {ranges.some(range => this.props.filters[range.key])
+            ? <Scale show value={this.getChartMaximums().distance.toFixed()} label="miles" />
+            : null
+          }
           {this.renderCharts()}
-          <Scale show value={"40000"} label="mins" />
+          {ranges.some(range => this.props.filters[range.key])
+            ? <Scale show value={((this.getChartMaximums().time) / 60).toFixed(1)} label="hours" />
+            : null}
         </div>
         <Filters />
       </div>
