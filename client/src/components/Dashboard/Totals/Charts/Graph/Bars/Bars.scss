@@ -20,18 +20,30 @@
   grid-row-start: 1;
   grid-row-end: 101;
   max-width: 65px;
+  &:hover {
+		transform: scaleX(1.2);
+	}
 }
 
 .run {
   background-color: $run-color;
+  &:hover {
+		background-color: $run-color-darken;
+	}
 }
 
 .ride {
   background-color: $ride-color;
+  &:hover {
+		background-color: $ride-color-darken;
+	}
 }
 
 .swim {
   background-color: $swim-color;
+  &:hover {
+		background-color: $swim-color-darken;
+	}
 }
 
 $totalRows: 101;

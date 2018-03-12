@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import classes from './Circle.scss';
-
-const Circle = (props) => {
-  return (
-    <circle {...props}></circle>
-  );
-};
+const Circle = props => (
+  <circle
+    onMouseEnter={() => props.mouseIn(props.value, props.units)}
+    onMouseLeave={() => props.mouseOut()}
+    className={props.className}
+    strokeDasharray={props.strokeDasharray}
+    strokeDashoffset={props.strokeDashoffset}
+  />
+);
 
 export default Circle;

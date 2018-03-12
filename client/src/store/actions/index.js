@@ -11,3 +11,8 @@ export {
 export {
   toggleFilter,
 } from './filters';
+
+export {
+  mouseIn,
+  mouseOut,
+} from './totals';

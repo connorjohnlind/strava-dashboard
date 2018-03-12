@@ -9,6 +9,10 @@ import Circles from './Circles/Circles';
 import { sports } from '../../Filters/filterTypes';
 
 class PieChart extends Component {
+  state = {
+    value: null,
+    units: null,
+  }
   getCounts() {
     const { range, auth, demo } = this.props;
     const mode = !demo.demoLoading ? demo : auth; // check if in demo mode
@@ -23,6 +27,15 @@ class PieChart extends Component {
     });
     return activeCounts;
   }
+  handleMouseIn = (value, units) => {
+    this.setState({
+      value,
+      units: `${units.substring(0, 1).toUpperCase()}${units.substring(1)}s`, // last minute formatting
+    });
+  }
+  handleMouseOut = () => {
+    this.setState({ value: null, units: null });
+  }
   totalCount() {
     const activeCounts = this.getCounts();
     if (Object.keys(activeCounts).length > 0) {
@@ -33,13 +46,17 @@ class PieChart extends Component {
   renderPiechart() {
     return (
       <svg viewBox="0 0 42 42" className={classes.donut}>
-        <Circles data={this.getCounts()} />
+        <Circles
+          data={this.getCounts()}
+          mouseIn={this.handleMouseIn}
+          mouseOut={this.handleMouseOut}
+        />
         <g className={classes.chartText}>
           <text x="50%" y="50%" className={classes.chartNumber}>
-            {this.totalCount()}
+            {this.state.value ? this.state.value : this.totalCount()}
           </text>
           <text x="50%" y="50%" className={classes.chartLabel}>
-            Activities
+            {this.state.units ? this.state.units : 'Activities'}
           </text>
         </g>
       </svg>
@@ -60,4 +77,7 @@ PieChart.propTypes = {
   }),
 };
 
-export default connect(({ auth, filters, demo }) => ({ auth, filters, demo }), actions)(PieChart);
+export default connect(
+  ({ auth, demo, filters }) => ({ auth, demo, filters }),
+  actions,
+)(PieChart);

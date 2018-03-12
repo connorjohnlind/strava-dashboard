@@ -16,6 +16,9 @@
 	r: 15.91549430918954;
 	fill: transparent;
 	stroke-width: 4;
+	&:hover {
+		stroke-width: 4.5;
+	}
 }
 
 .animated {
@@ -26,12 +29,21 @@
 
 .run {
 	stroke: $run-color;
+	&:hover {
+		stroke: $run-color-darken;
+	}
 }
 
 .ride {
 	stroke: $ride-color;
+	&:hover {
+		stroke: $ride-color-darken;
+	}
 }
 
 .swim {
 	stroke: $swim-color;
+	&:hover {
+		stroke: $swim-color-darken;
+	}
 }

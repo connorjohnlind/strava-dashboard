@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classes from './Scale.scss';
 
-const Charts = props => (
+const Scale = props => (
   <div className={classes.content}>
     <div className={classes.barWrapper}>
       <div className={classes.barEnd} />
@@ -17,6 +17,6 @@ const Charts = props => (
   </div>
 );
 
-Charts.propTypes = {};
+Scale.propTypes = {};
 
-export default Charts;
+export default Scale;

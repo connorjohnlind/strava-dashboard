@@ -30,6 +30,10 @@ const Circles = (props) => {
         className={[classes.donutSegment, classes[key]].join(' ')} // add special styles for keys
         strokeDasharray={`${stroke} ${remainder}`}
         strokeDashoffset={`${offset}`}
+        mouseIn={props.mouseIn}
+        mouseOut={props.mouseOut}
+        value={data[key]}
+        units={key}
       />,
     );
     strokeSum += stroke;

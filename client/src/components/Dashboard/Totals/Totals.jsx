@@ -12,7 +12,7 @@ import Aux from '../../hoc/Aux';
 import { sports, ranges } from './Filters/filterTypes';
 
 class Totals extends Component {
-  // calculate global maximums in Totals, and pass down to all Charts
+  // calculate global maximums in Totals, and pass down to all Charts and Scales
   getChartMaximums() {
     const { auth, demo } = this.props;
     const mode = !demo.demoLoading ? demo : auth; // check if in demo mode
@@ -35,6 +35,7 @@ class Totals extends Component {
     });
     return maximums;
   }
+  // render the Charts by range
   renderCharts() {
     const activeTotals = ranges.map((range) => {
       if (this.props.filters[range.key]) {
