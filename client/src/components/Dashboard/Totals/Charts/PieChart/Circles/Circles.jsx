@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Aux from '../../../../../hoc/Aux';
 
 import classes from './Circles.scss';
+import Circle from './Circle/Circle';
 
 const Circles = (props) => {
   const { data } = props;
@@ -24,7 +25,7 @@ const Circles = (props) => {
     const offset = (i === 0) ? 25 : (100 - strokeSum) + 25;
 
     circles.push(
-      <circle
+      <Circle
         key={`${key}_circle_${Math.random()}`}
         className={[classes.donutSegment, classes[key]].join(' ')} // add special styles for keys
         strokeDasharray={`${stroke} ${remainder}`}
@@ -38,7 +39,7 @@ const Circles = (props) => {
       <circle className={classes.donutHole} />
       {circles}
       <circle
-        key={'animated_circle'}
+        key="animated_circle"
         className={[classes.donutSegment, classes.animated].join(' ')} // add special styles for keys
         strokeDasharray="0 100"
         strokeDashoffset="25"

@@ -26,7 +26,7 @@ class Graph extends Component {
       }
     });
 
-    return [distances, times];
+    return { distances, times };
   }
   render() {
     const categories = this.getCategories();
@@ -34,11 +34,11 @@ class Graph extends Component {
     return (
       <div className={classes.content}>
         <div className={classes.category}>
-          <Bars data={categories[0]} max={this.props.maximums.distance} />
+          <Bars data={categories.distances} max={this.props.maximums.distance} units="miles" />
           <p>Distance</p>
         </div>
         <div className={classes.category}>
-          <Bars data={categories[1]} max={this.props.maximums.time} />
+          <Bars data={categories.times} max={this.props.maximums.time} units="hours" />
           <p>Time</p>
         </div>
       </div>
