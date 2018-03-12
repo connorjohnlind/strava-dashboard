@@ -1,0 +1,8 @@
+@keyframes bars {
+  0% {height:0;}
+}
+
+@keyframes piechart {
+	0% {stroke-dasharray: 100 0;}
+  100% {stroke-dasharray: 0 100;}
+}

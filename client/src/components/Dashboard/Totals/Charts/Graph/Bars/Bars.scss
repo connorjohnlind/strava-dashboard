@@ -1,15 +1,16 @@
 @import '../../../../../../scss/base';
 @import '../../../../../../scss/format';
 @import '../../../../../../scss/variables';
+@import '../../../../../../scss/animations';
 
 .graph {
   display: grid;
-  //grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(100, 1fr);
   grid-column-gap: 5px;
   height: 100%;
   width: 100%;
   padding: 5px 3px;
+  animation: $bars-animation;
 }
 
 [class*="value"] {

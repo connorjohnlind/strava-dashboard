@@ -37,6 +37,12 @@ const Circles = (props) => {
     <Aux>
       <circle className={classes.donutHole} />
       {circles}
+      <circle
+        key={'animated_circle'}
+        className={[classes.donutSegment, classes.animated].join(' ')} // add special styles for keys
+        strokeDasharray="0 100"
+        strokeDashoffset="25"
+      />
     </Aux>
   );
 };

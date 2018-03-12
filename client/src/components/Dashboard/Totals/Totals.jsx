@@ -56,13 +56,13 @@ class Totals extends Component {
   render() {
     return (
       <div className={classes.card} >
-        <h3>Totals</h3>
-        <Filters />
+        <h3>Stats and Totals</h3>
         <div className={classes.main}>
-          <Scale value={"300000"} label="miles" />
+          <Scale show value={"300000"} label="miles" />
           {this.renderCharts()}
-          <Scale value={"400000"} label="mins" />
+          <Scale show value={"40000"} label="mins" />
         </div>
+        <Filters />
       </div>
     );
   }
@@ -73,4 +73,7 @@ Totals.propTypes = {
   }).isRequired,
 };
 
-export default connect(({ auth, demo, filters }) => ({ auth, demo, filters }), actions)(Totals);
+export default connect(
+  ({ auth, demo, filters }) => ({ auth, demo, filters }),
+  actions,
+)(Totals);
