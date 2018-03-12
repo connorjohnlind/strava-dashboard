@@ -20,12 +20,13 @@ const Login = (props) => {
     errorMessage = <p>{props.error.data.message}</p>;
   }
   return (
-    <div className={classes.Content}>
+    <div className={classes.content}>
       {errorMessage}
-      <h1>Login</h1>
+      <h1>Strava Dash</h1>
+      <p>an app by Connor Lind</p>
       <button
         onClick={stravaClick}
-        className={classes.StravaConnect}
+        className={classes.stravaConnect}
         alt="Strava Connect"
       />
       <p>Don&#39;t have Strava? Check out the <a href="/demo">demo</a>.</p>

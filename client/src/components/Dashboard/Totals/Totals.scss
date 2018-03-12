@@ -15,3 +15,11 @@
   width: 100%;
   margin-bottom: 20px;
 }
+
+@media screen and (min-width: $ipad-breakpoint) {
+  .card {
+    min-width: 730px;
+    max-width: 900px;
+    width: 90%;
+  }
+}

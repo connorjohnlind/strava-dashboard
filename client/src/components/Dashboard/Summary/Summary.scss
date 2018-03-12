@@ -36,13 +36,15 @@
   }
   .card {
     padding: 0 30px;
-    width: 40%;
+    width: 60%;
+    min-width: 600px;
+    max-width: 700px;
   }
   .content {
     padding-top: 0;
     justify-content: space-between;
     h3 {
-      font-size: 25pt;
+      font-size: 20pt;
       padding-left: 20px;
     }
   }

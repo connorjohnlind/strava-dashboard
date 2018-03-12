@@ -61,7 +61,9 @@ class Graph extends Component {
             max={this.props.maximums.distance}
             category="distance"
           />
-          <p>{this.state.distance ? `${this.state.distance.toFixed(1)} mi` : 'Distance'}</p>
+          <p className={classes.label}>
+            {this.state.distance ? `${this.state.distance.toFixed(1)} mi` : 'Distance'}
+          </p>
         </div>
         <div className={classes.category}>
           <Bars
@@ -71,7 +73,9 @@ class Graph extends Component {
             max={this.props.maximums.time}
             category="time"
           />
-          <p>{this.state.time ? `${(this.state.time / 60).toFixed(1)} hr` : 'Time'}</p>
+          <p>
+            {this.state.time ? `${(this.state.time / 60).toFixed(1)} hr` : 'Time'}
+          </p>
         </div>
       </div>
     );

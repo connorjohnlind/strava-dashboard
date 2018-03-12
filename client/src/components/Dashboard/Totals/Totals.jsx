@@ -55,15 +55,15 @@ class Totals extends Component {
   render() {
     return (
       <div className={classes.card} >
-        <h3>Stats and Totals</h3>
+        <h2>Stats and Totals</h2>
         <div className={classes.main}>
           {ranges.some(range => this.props.filters[range.key])
-            ? <Scale show value={this.getChartMaximums().distance.toFixed()} label="miles" />
+            ? <Scale value={this.getChartMaximums().distance.toFixed()} label="miles" />
             : null
           }
           {this.renderCharts()}
           {ranges.some(range => this.props.filters[range.key])
-            ? <Scale show value={((this.getChartMaximums().time) / 60).toFixed(1)} label="hours" />
+            ? <Scale value={((this.getChartMaximums().time) / 60).toFixed(1)} label="hours" />
             : null}
         </div>
         <Filters />

@@ -24,16 +24,13 @@ class Demo extends Component {
         <Aux>
           <Summary athlete={this.props.demo.athlete} totals={this.props.demo.totals} />
           <Totals />
+          {/* <Calendar activities={this.props.demo.activities} /> */}
         </Aux>
       );
     }
-    const calendar = this.props.demo.activities
-      ? <Calendar activities={this.props.demo.activities} />
-      : null;
     return (
       <Aux>
         {dashboard}
-        {calendar}
       </Aux>
     );
   }
