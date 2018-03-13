@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Charts.scss';
@@ -13,6 +13,10 @@ const Charts = props => (
   </div>
 );
 
-Charts.propTypes = {};
+Charts.propTypes = {
+  label: PropTypes.string.isRequired,
+  maximums: PropTypes.shape({}).isRequired,
+  range: PropTypes.string.isRequired,
+};
 
 export default Charts;

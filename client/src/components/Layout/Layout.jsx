@@ -7,7 +7,7 @@ import Topbar from '../Navigation/Topbar';
 const Layout = props => (
   <div>
     <Topbar />
-    <main className={classes.Dashboard}>
+    <main className={classes.dashboard}>
       {props.children}
     </main>
   </div>

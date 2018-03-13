@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import connectStrava from '../../assets/btn_strava_connectwith_orange.png';
 
 import classes from './Login.scss';
 
@@ -17,18 +18,21 @@ const stravaClick = () => {
 const Login = (props) => {
   let errorMessage;
   if (props.error) {
-    errorMessage = <p>{props.error.data.message}</p>;
+    errorMessage = (
+      <div className={classes.error}>
+        <p>Sorry, there has been an error:</p>
+        <p>{props.error.data.message}</p>
+      </div>
+    );
   }
   return (
     <div className={classes.content}>
       {errorMessage}
       <h1>Strava Dash</h1>
       <p>an app by Connor Lind</p>
-      <button
-        onClick={stravaClick}
-        className={classes.stravaConnect}
-        alt="Strava Connect"
-      />
+      <a className={classes.stravaConnect} onClick={stravaClick}>
+        <img src={connectStrava} alt="Strava Connect" />
+      </a>
       <p>Don&#39;t have Strava? Check out the <a href="/demo">demo</a>.</p>
     </div>
   );

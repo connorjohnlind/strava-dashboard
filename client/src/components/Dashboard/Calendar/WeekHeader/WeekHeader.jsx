@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import classes from './WeekHeader.scss';
 
-const WeekHeader = props => (
-  <div className={classes.Content}>
+const WeekHeader = () => (
+  <div className={classes.content}>
     <div>Sun</div>
     <div>Mon</div>
     <div>Tue</div>

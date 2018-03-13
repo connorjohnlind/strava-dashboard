@@ -25,8 +25,8 @@ class Topbar extends Component {
       logout = <Button clicked={this.exitDemoHandler}>Exit</Button>;
     }
     return (
-      <div className={classes.Topbar}>
-        <img className={classes.PoweredLogo} src={PoweredLogo} alt="Powered By Stava" />
+      <div className={classes.topbar}>
+        <img className={classes.poweredLogo} src={PoweredLogo} alt="Powered By Stava" />
         {logout}
       </div>
     );
@@ -34,12 +34,11 @@ class Topbar extends Component {
 }
 
 Topbar.propTypes = {
-  accessToken: PropTypes.string,
+  auth: PropTypes.shape({
+    accessToken: PropTypes.string,
+  }).isRequired,
   authRevoke: PropTypes.func.isRequired,
-};
-
-Topbar.defaultProps = {
-  accessToken: null,
+  history: PropTypes.shape({}).isRequired,
 };
 
 export default connect(({ auth }) => ({ auth }), actions)(withRouter(Topbar));

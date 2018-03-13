@@ -2,7 +2,7 @@
 @import '../../../scss/format';
 @import '../../../scss/variables';
 
-.Card {
+.card {
   @extend .card;
   @extend .flexcol;
   margin-top: 40px;
@@ -10,14 +10,14 @@
   height: 400px;
 }
 
-.Calendar {
+.calendar {
   @extend .flexcol;
   width: 320px;
   height: 320px;
   border: 1px dashed $strava-orange;
 }
 
-.Days {
+.days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);

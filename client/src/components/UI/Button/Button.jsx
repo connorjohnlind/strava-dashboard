@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import classes from './Button.scss';
 
 const Button = (props) => {
-  const activeClass = props.active ? classes.Active : null;
+  const activeClass = props.active ? classes.active : null;
   return (
     <button
       disabled={props.disabled}
-      className={[classes.Button, classes[props.btnType], activeClass].join(' ')}
+      className={[classes.button, classes[props.btnType], activeClass].join(' ')}
       onClick={props.clicked}
     >{props.children}
     </button>

@@ -14,14 +14,16 @@ const Day = (props) => {
   }
 
   return (
-    <div className={classes.Content}>
+    <div className={classes.content}>
       { props.showMonth ? dateFns.format(props.date, 'MMM DD') : dateFns.format(props.date, 'D') }
     </div>
-  )
+  );
 };
 
 Day.propTypes = {
-
+  currentMonth: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  showMonth: PropTypes.bool.isRequired,
 };
 
 Day.defaultProps = {

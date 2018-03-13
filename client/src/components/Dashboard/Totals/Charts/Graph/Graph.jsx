@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../../store/actions';
 import classes from './Graph.scss';
 import Bars from './Bars/Bars';
-import Aux from '../../../../hoc/Aux';
 
 import { sports } from '../../Filters/filterTypes';
 
@@ -25,9 +24,11 @@ class Graph extends Component {
     sports.forEach((sport) => {
       const { key } = sport;
       if (this.props.filters[key]) {
+        /* eslint-disable camelcase */
         const { distance, moving_time } = mode.totals[`${range}_${sport.key}_totals`];
         distances[key] = distance * 0.000621371;
         times[key] = moving_time * 0.0166667;
+        /* eslint-enable camelcase */
       }
     });
 
@@ -81,5 +82,16 @@ class Graph extends Component {
     );
   }
 }
+
+Graph.propTypes = {
+  auth: PropTypes.shape({}).isRequired,
+  demo: PropTypes.shape({}).isRequired,
+  filters: PropTypes.shape({}).isRequired,
+  maximums: PropTypes.shape({
+    distance: PropTypes.number,
+    time: PropTypes.number,
+  }).isRequired,
+  range: PropTypes.string.isRequired,
+};
 
 export default connect(({ auth, filters, demo }) => ({ auth, filters, demo }), actions)(Graph);

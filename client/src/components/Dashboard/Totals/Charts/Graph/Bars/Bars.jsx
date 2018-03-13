@@ -34,4 +34,12 @@ const Bars = (props) => {
   );
 };
 
+Bars.propTypes = {
+  category: PropTypes.string.isRequired,
+  data: PropTypes.shape({}).isRequired,
+  max: PropTypes.number.isRequired,
+  mouseIn: PropTypes.func.isRequired,
+  mouseOut: PropTypes.func.isRequired,
+};
+
 export default Bars;

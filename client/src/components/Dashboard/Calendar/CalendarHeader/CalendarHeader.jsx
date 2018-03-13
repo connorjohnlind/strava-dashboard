@@ -6,7 +6,7 @@ import Button from '../../../UI/Button/Button';
 import classes from './CalendarHeader.scss';
 
 const CalendarHeader = props => (
-  <div className={classes.Content}>
+  <div className={classes.content}>
     <p>{dateFns.format(props.currentMonth, 'MMMM YYYY')}</p>
     <div>
       <Button clicked={props.prev}>&lt;</Button>

@@ -74,9 +74,10 @@ class PieChart extends Component {
 }
 
 PieChart.propTypes = {
-  filters: PropTypes.shape({
-
-  }),
+  auth: PropTypes.shape({}).isRequired,
+  demo: PropTypes.shape({}).isRequired,
+  filters: PropTypes.shape({}).isRequired,
+  range: PropTypes.string.isRequired,
 };
 
 export default connect(

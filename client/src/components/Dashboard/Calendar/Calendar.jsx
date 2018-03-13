@@ -52,9 +52,9 @@ class Calendar extends Component {
     }
 
     return (
-      <div className={classes.Card} >
+      <div className={classes.card} >
         <h3>Calendar</h3>
-        <div className={classes.Calendar}>
+        <div className={classes.calendar}>
           <CalendarHeader
             currentMonth={this.state.currentMonth}
             next={this.next}
@@ -62,7 +62,7 @@ class Calendar extends Component {
             prev={this.prev}
           />
           <WeekHeader />
-          <div className={classes.Days}>
+          <div className={classes.days}>
             {calendarDays}
           </div>
         </div>
@@ -72,16 +72,9 @@ class Calendar extends Component {
 }
 
 Calendar.propTypes = {
-  activities: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    }),
-  ),
 };
 
 Calendar.defaultProps = {
-  activities: null,
 };
 
 export default Calendar;

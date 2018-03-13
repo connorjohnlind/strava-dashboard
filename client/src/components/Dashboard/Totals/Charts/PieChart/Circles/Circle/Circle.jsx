@@ -11,4 +11,14 @@ const Circle = props => (
   />
 );
 
+Circle.propTypes = {
+  className: PropTypes.string.isRequired,
+  mouseIn: PropTypes.func.isRequired,
+  mouseOut: PropTypes.func.isRequired,
+  strokeDasharray: PropTypes.string.isRequired,
+  strokeDashoffset: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  units: PropTypes.string.isRequired,
+};
+
 export default Circle;

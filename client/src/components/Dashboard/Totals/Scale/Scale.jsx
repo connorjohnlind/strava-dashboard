@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Scale.scss';
@@ -17,6 +17,9 @@ const Scale = props => (
   </div>
 );
 
-Scale.propTypes = {};
+Scale.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+};
 
 export default Scale;

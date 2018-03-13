@@ -52,4 +52,10 @@ const Circles = (props) => {
   );
 };
 
+Circles.propTypes = {
+  data: PropTypes.shape({}).isRequired,
+  mouseIn: PropTypes.func.isRequired,
+  mouseOut: PropTypes.func.isRequired,
+};
+
 export default Circles;

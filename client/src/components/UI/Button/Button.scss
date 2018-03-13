@@ -1,6 +1,6 @@
 @import '../../../scss/variables';
 
-.Button {
+.button {
   background-color: $strava-orange;
   border: none;
   color: white;
@@ -28,7 +28,7 @@
   }
 }
 
-.Filter {
+.filter {
   background-color: $app-background-color;
   color: $strava-organge-light;
   width: 100%;
@@ -38,17 +38,17 @@
     background-color: $app-background-hover;
   }
 
-  &.Active {
+  &.active {
     background-color: $strava-organge-light;
     color: white;
   }
-  &.Active:hover {
+  &.active:hover {
     background-color: $strava-orange-light-hover;
   }
 }
 
 .run {
-  @extend .Filter;
+  @extend .filter;
   background-color: $app-background-color;
   color: $run-color-darken;
 
@@ -56,17 +56,17 @@
     background-color: $app-background-hover;
   }
 
-  &.Active {
+  &.active {
     background-color: $run-color-darken;
     color: white;
   }
-  &.Active:hover {
+  &.active:hover {
     background-color: $run-color;
   }
 }
 
 .ride {
-  @extend .Filter;
+  @extend .filter;
   background-color: $app-background-color;
   color: $ride-color-darken;
 
@@ -74,17 +74,17 @@
     background-color: $app-background-hover;
   }
 
-  &.Active {
+  &.active {
     background-color: $ride-color-darken;
     color: white;
   }
-  &.Active:hover {
+  &.active:hover {
     background-color: $ride-color;
   }
 }
 
 .swim {
-  @extend .Filter;
+  @extend .filter;
   background-color: $app-background-color;
   color: $swim-color-darken;
 
@@ -92,17 +92,17 @@
     background-color: $app-background-hover;
   }
 
-  &.Active {
+  &.active {
     background-color: $swim-color-darken;
     color: white;
   }
-  &.Active:hover {
+  &.active:hover {
     background-color: $swim-color;
   }
 }
 
 @media screen and (min-width: $ipad-breakpoint) {
-  .Filter {
+  .filter {
     font-size: 10pt;
     margin: 0 3px;
     border-radius: 3px;

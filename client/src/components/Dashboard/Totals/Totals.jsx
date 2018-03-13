@@ -73,8 +73,9 @@ class Totals extends Component {
 }
 
 Totals.propTypes = {
-  filters: PropTypes.shape({
-  }).isRequired,
+  auth: PropTypes.shape({}).isRequired,
+  demo: PropTypes.shape({}).isRequired,
+  filters: PropTypes.shape({}).isRequired,
 };
 
 export default connect(
