@@ -51,6 +51,19 @@ class Graph extends Component {
   }
   render() {
     const categories = this.getCategories();
+    const mobileTableRows = sports.map((sport) => {
+      const { key } = sport;
+      if (this.props.filters[key]) {
+        return (
+          <tr key={`${key}_table_row`}>
+            <td>{`${key.substring(0, 1).toUpperCase()}${key.substring(1)}`}</td>
+            <td>{`${(categories.distances[key]).toFixed(1)} mi`}</td>
+            <td>{`${((categories.times[key]) / 60).toFixed(1)} hr`}</td>
+          </tr>
+        );
+      }
+      return null;
+    });
 
     return (
       <div className={classes.content}>
@@ -77,6 +90,18 @@ class Graph extends Component {
           <p>
             {this.state.time ? `${(this.state.time / 60).toFixed(1)} hr` : 'Time'}
           </p>
+        </div>
+        <div className={classes.mobile}>
+          <table>
+            <tbody>
+              <tr>
+                <td>&nbsp;</td>
+                <td>Distance</td>
+                <td>Time</td>
+              </tr>
+              {mobileTableRows}
+            </tbody>
+          </table>
         </div>
       </div>
     );
