@@ -40,8 +40,8 @@ const Circles = (props) => {
   }
   return (
     <Aux>
-      <circle className={classes.donutHole} />
       {circles}
+      <circle className={classes.donutHole} />
       <circle
         key="animated_circle"
         className={[classes.donutSegment, classes.animated].join(' ')} // add special styles for keys
