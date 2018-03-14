@@ -47,11 +47,14 @@ class PieChart extends Component {
   }
   renderPiechart() {
     return (
-      <svg viewBox="0 0 42 42" className={classes.donut}>
+      <svg viewBox="0 0 42 42" className={classes.piechart}>
         <Circles
           data={this.getCounts()}
           mouseIn={this.handleMouseIn}
           mouseOut={this.handleMouseOut}
+          cx={21}
+          cy={21}
+          r={15.91549430918954}
         />
         <g className={classes.chartText}>
           <text x="50%" y="50%" className={classes.chartNumber}>

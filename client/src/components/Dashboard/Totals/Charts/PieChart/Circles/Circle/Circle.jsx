@@ -8,13 +8,19 @@ const Circle = props => (
     className={props.className}
     strokeDasharray={props.strokeDasharray}
     strokeDashoffset={props.strokeDashoffset}
+    cx={props.cx}
+    cy={props.cy}
+    r={props.r}
   />
 );
 
 Circle.propTypes = {
   className: PropTypes.string.isRequired,
+  cx: PropTypes.number.isRequired,
+  cy: PropTypes.number.isRequired,
   mouseIn: PropTypes.func.isRequired,
   mouseOut: PropTypes.func.isRequired,
+  r: PropTypes.number.isRequired,
   strokeDasharray: PropTypes.string.isRequired,
   strokeDashoffset: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,

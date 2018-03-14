@@ -3,17 +3,7 @@
 @import '../../../../../../scss/variables';
 @import '../../../../../../scss/animations';
 
-.donutHole {
-	cx: 21;
-	cy: 21;
-	r: 15.91549430918954;
-	fill: $card-color;
-}
-
 .donutSegment {
-	cx: 21;
-	cy: 21;
-	r: 15.91549430918954;
 	fill: $card-color;
 	stroke-width: 8;
 	&:hover {
@@ -23,7 +13,7 @@
 
 .animated {
 	stroke: $card-color;
-	stroke-width: 8;
+	stroke-width: 9;
 	animation: piechart 1s linear;
 }
 

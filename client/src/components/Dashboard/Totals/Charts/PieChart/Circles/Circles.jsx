@@ -34,6 +34,9 @@ const Circles = (props) => {
         mouseOut={props.mouseOut}
         value={data[key]}
         units={key}
+        cx={props.cx}
+        cy={props.cy}
+        r={props.r}
       />,
     );
     strokeSum += stroke;
@@ -41,12 +44,14 @@ const Circles = (props) => {
   return (
     <Aux>
       {circles}
-      <circle className={classes.donutHole} />
       <circle
         key="animated_circle"
         className={[classes.donutSegment, classes.animated].join(' ')} // add special styles for keys
         strokeDasharray="0 100"
         strokeDashoffset="25"
+        cx={props.cx}
+        cy={props.cy}
+        r={props.r}
       />
     </Aux>
   );
@@ -54,8 +59,11 @@ const Circles = (props) => {
 
 Circles.propTypes = {
   data: PropTypes.shape({}).isRequired,
+  cx: PropTypes.number.isRequired,
+  cy: PropTypes.number.isRequired,
   mouseIn: PropTypes.func.isRequired,
   mouseOut: PropTypes.func.isRequired,
+  r: PropTypes.number.isRequired,
 };
 
 export default Circles;
