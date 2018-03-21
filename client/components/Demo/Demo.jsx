@@ -30,7 +30,8 @@ class Demo extends Component {
     }
     return (
       <Aux>
-        {dashboard}
+        {/* {dashboard} */}
+        <div>demo component</div>
       </Aux>
     );
   }
