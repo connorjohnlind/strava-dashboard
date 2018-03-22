@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 
 import classes from './Layout.scss';
 import Topbar from './Navigation/Topbar';
 
 const Layout = props => (
   <div>
-    <Topbar />
+    <Topbar path={props.location.pathname} />
     <main className={classes.dashboard}>
       {props.children}
     </main>
@@ -21,4 +22,4 @@ Layout.defaultProps = {
   children: undefined,
 };
 
-export default Layout;
+export default withRouter(Layout);

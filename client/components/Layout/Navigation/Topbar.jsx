@@ -20,6 +20,8 @@ class Topbar extends Component {
     let logout;
     if (this.props.auth.accessToken) {
       logout = <Button clicked={this.logoutHandler}>Logout</Button>;
+    } else if (this.props.path === '/demo') { // passed in as a prop from Layout to avoid Update Blocking
+      logout = <Button clicked={this.exitDemoHandler}>Exit</Button>;
     }
     return (
       <div className={classes.topbar}>
@@ -35,7 +37,10 @@ Topbar.propTypes = {
     accessToken: PropTypes.string,
   }).isRequired,
   authRevoke: PropTypes.func.isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  path: PropTypes.string.isRequired,
 };
 
 export default connect(({ auth }) => ({ auth }), actions)(withRouter(Topbar));
