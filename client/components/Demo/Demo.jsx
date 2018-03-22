@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Aux from '../hoc/Aux';
-import Calendar from '../Dashboard/Calendar/Calendar';
+// import Calendar from '../Dashboard/Calendar/Calendar';
 import Summary from '../Dashboard/Summary/Summary';
 import Totals from '../Dashboard/Totals/Totals';
 import Spinner from '../UI/Spinner/Spinner';
@@ -30,8 +30,7 @@ class Demo extends Component {
     }
     return (
       <Aux>
-        {/* {dashboard} */}
-        <div>demo component</div>
+        {dashboard}
       </Aux>
     );
   }

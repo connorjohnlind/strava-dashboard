@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Layout.scss';
-import Topbar from '../Navigation/Topbar';
+import Topbar from './Navigation/Topbar';
 
 const Layout = props => (
   <div>

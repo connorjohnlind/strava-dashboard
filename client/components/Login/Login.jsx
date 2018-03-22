@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import connectStrava from '../../assets/btn_strava_connectwith_orange.png';
 
 import classes from './Login.scss';
@@ -33,7 +34,7 @@ const Login = (props) => {
       <a className={classes.stravaConnect} onClick={stravaClick}>
         <img src={connectStrava} alt="Strava Connect" />
       </a>
-      <p>Don&#39;t have Strava? Check out the <a href="/demo">demo</a>.</p>
+      <p>Don&#39;t have Strava? Check out the <Link to="/demo">demo</Link>.</p>
     </div>
   );
 };

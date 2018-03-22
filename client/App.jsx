@@ -5,10 +5,14 @@ import Layout from './components/Layout/Layout';
 import Dashboard from './components/Dashboard/Dashboard';
 import Demo from './components/Demo/Demo';
 
+const example = () => (
+  <div>Example</div>
+)
+
 const App = () => (
   <Layout>
-    <Route path="/demo" exact component={Demo} />
     <Route path="/" exact component={Dashboard} />
+    <Route path="/demo" component={Demo} />
   </Layout>
 );
 
