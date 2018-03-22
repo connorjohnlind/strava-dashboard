@@ -82,11 +82,11 @@
     "eslint-plugin-react": "^7.7.0"
   },
   "scripts": {
-    "start": "NODE_ENV=production node server/server.js",
+    "start": "node server/server.js",
     "build:dev": "NODE_ENV=development webpack --config=webpack.config.dev.js",
     "build": "NODE_ENV=production webpack --config=webpack.config.prod.js",
     "dev": "NODE_ENV=development nodemon --inspect --watch webpack.config.dev.js --watch server server/server.js",
-    "prod": "NODE_ENV=production node server/server.js",
+    "prod": "heroku local -p 8080",
     "heroku-postbuild": "npm run build"
   }
 }
