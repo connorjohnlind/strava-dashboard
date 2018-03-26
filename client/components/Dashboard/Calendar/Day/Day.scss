@@ -5,10 +5,36 @@
 .content {
   @extend .flexcol;
   justify-content: center;
+  align-items: center;
   padding: 3px;
   color: #666;
-  font-size: .7rem;
+  font-size: .6rem;
   border: 1px solid lightgrey;
+
+  div {
+    width: 25px;
+    height: 25px;
+    padding: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid grey;
+  }
+}
+
+.hideDay {
+  display: none;
+}
+
+.Run {
+  background-image: $run-icon-url;
+}
+
+.Ride {
+  background-image: $ride-icon-url;
+}
+
+.Swim {
+  background-image: $swim-icon-url;
 }
 
 @media screen and (min-width: $ipad-breakpoint) {
@@ -21,6 +47,13 @@
       margin: 0;
       align-self: flex-start;
     }
+    div {
+      margin-top: 20px;
+      width: 40px;
+      height: 40px;
+    }
   }
-
+  .hideDay {
+    display: block;
+  }
 }
