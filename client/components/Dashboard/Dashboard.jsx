@@ -12,7 +12,7 @@ import Spinner from '../UI/Spinner/Spinner';
 import * as actions from '../../store/actions';
 
 class Dashboard extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const query = new URLSearchParams(window.location.search);
     if (query.get('code')) {
       this.props.authInit(query.get('code'));
@@ -36,7 +36,7 @@ class Dashboard extends Component {
         <Aux>
           <Summary athlete={this.props.auth.athlete} totals={this.props.auth.totals} />
           <Totals />
-          {/* <Calendar activities={this.props.auth.activities} /> */}
+          <Calendar activities={this.props.auth.activities} />
         </Aux>
       );
     }

@@ -9,13 +9,9 @@ const Day = (props) => {
     // classes.push('Calendar_Day_Weekend')
   }
 
-  if (dateFns.getMonth(props.currentMonth) !== dateFns.getMonth(props.date)) {
-    // classes.push('Calendar_Day_Out_Of_Scope')
-  }
-
   return (
     <div className={classes.content}>
-      { props.showMonth ? dateFns.format(props.date, 'MMM DD') : dateFns.format(props.date, 'D') }
+      { props.firstOfMonth ? dateFns.format(props.date, 'MMM DD') : dateFns.format(props.date, 'D') }
     </div>
   );
 };
@@ -23,7 +19,7 @@ const Day = (props) => {
 Day.propTypes = {
   currentMonth: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  showMonth: PropTypes.bool.isRequired,
+  firstOfMonth: PropTypes.bool.isRequired,
 };
 
 Day.defaultProps = {

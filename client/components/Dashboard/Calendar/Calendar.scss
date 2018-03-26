@@ -12,9 +12,9 @@
 
 .calendar {
   @extend .flexcol;
-  width: 320px;
-  height: 320px;
-  border: 1px dashed $strava-orange;
+  width: 310px;
+  height: 310px;
+  margin-top: 20px;
 }
 
 .days {
@@ -24,4 +24,17 @@
   height: 100%;
   width: 100%;
   border: 1px dashed $strava-orange;
+}
+
+@media screen and (min-width: $ipad-breakpoint) {
+  .card {
+    min-width: 730px;
+    max-width: 900px;
+    width: 90%;
+  }
+  .calendar {
+    min-width: 730px;
+    max-width: 900px;
+    width: 97%;
+  }
 }

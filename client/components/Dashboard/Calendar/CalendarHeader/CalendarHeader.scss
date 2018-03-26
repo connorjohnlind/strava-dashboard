@@ -7,5 +7,32 @@
   justify-content: space-between;
   width: 100%;
   height: 30px;
-  border: 1px dashed $strava-orange;
+  margin-bottom: 10px;
+}
+
+.month {
+  @extend .flexrow;
+  // position: absolute;
+  // left: 50%;
+  // transform: translateX(-50%);
+  p {
+    min-width: 150px;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: $ipad-breakpoint) {
+  .content {
+    justify-content: flex-end;
+  }
+
+  .month {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    p {
+      font-size: 22px;
+      min-width: 210px;
+    }
+  }
 }

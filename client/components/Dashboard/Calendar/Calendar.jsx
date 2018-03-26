@@ -36,7 +36,7 @@ class Calendar extends Component {
             key={dateIncrement}
             date={dateIncrement}
             currentMonth={this.state.currentMonth}
-            showMonth
+            firstOfMonth
           />,
         );
       } else {
@@ -53,7 +53,6 @@ class Calendar extends Component {
 
     return (
       <div className={classes.card} >
-        <h3>Calendar</h3>
         <div className={classes.calendar}>
           <CalendarHeader
             currentMonth={this.state.currentMonth}

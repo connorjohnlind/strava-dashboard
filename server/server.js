@@ -20,6 +20,7 @@ require('./routes/demoRoutes')(app);
 // devServer (catch all)
 require('./config/devServer')(app);
 
+// production (catch all)
 if (process.env.NODE_ENV === 'production') {
   app.use(expressStaticGzip(path.resolve(__dirname, '..', 'dist'), {
     enableBrotli: true,
