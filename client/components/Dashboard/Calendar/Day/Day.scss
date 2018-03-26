@@ -17,7 +17,6 @@
     padding: 10px;
     background-repeat: no-repeat;
     background-size: cover;
-    border: 1px solid grey;
   }
 }
 
@@ -35,6 +34,10 @@
 
 .Swim {
   background-image: $swim-icon-url;
+}
+
+.WeightTraining {
+  background-image: $weights-icon-url;
 }
 
 @media screen and (min-width: $ipad-breakpoint) {

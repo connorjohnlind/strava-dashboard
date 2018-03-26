@@ -8,7 +8,10 @@ import classes from './Day.scss';
 const Day = (props) => {
   let content;
   if (props.activities) {
-    const firstActivity = props.activities[0];
+    const activities = props.activities.filter(activity => (
+      activity === 'Run' || 'Ride' || 'Swim' || 'WeightTraining'
+    ));
+    const firstActivity = activities[0];
     content = (
       <Aux>
         <p className={classes.hideDay}>

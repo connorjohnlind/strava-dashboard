@@ -28,7 +28,7 @@
 
 .filter {
   background-color: $app-background-color;
-  color: $strava-organge-light;
+  color: $strava-orange-light;
   width: 100%;
   font-size: 8pt;
 
@@ -37,7 +37,7 @@
   }
 
   &.active {
-    background-color: $strava-organge-light;
+    background-color: $strava-orange-light;
     color: white;
   }
   &.active:hover {
@@ -96,6 +96,14 @@
   }
   &.active:hover {
     background-color: $swim-color;
+  }
+}
+
+.grey {
+  background-color: $strava-orange-light;
+  color: white;
+  &:hover {
+    background-color: $strava-orange-light-hover;
   }
 }
 

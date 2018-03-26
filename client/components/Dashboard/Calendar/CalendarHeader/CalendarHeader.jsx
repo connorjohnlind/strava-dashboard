@@ -8,11 +8,11 @@ import classes from './CalendarHeader.scss';
 const CalendarHeader = props => (
   <div className={classes.content}>
     <div className={classes.month}>
-      <Button clicked={props.prev}>&lt;</Button>
+      <Button btnType="grey" clicked={props.prev}>&lt;</Button>
       <p>{dateFns.format(props.currentMonth, 'MMMM YYYY')}</p>
-      <Button clicked={props.next}>&gt;</Button>
+      <Button btnType="grey" clicked={props.next}>&gt;</Button>
     </div>
-    <Button className={classes.today} clicked={props.today}>Today</Button>
+    <Button btnType="grey" className={classes.today} clicked={props.today}>Today</Button>
   </div>
 );
 
