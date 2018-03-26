@@ -24,31 +24,41 @@ class Calendar extends Component {
     this.setState({ currentMonth: today });
   }
   render() {
-    // const typesArray = this.props.activities.map(activity => (activity.type));
+    const activityMap = {};
+    this.props.activities.forEach((activity) => {
+      const date = dateFns.format(dateFns.parse(activity.start_date), 'YYYY-MM-DD');
+      activityMap[date] = activityMap[date]
+        ? [...activityMap[date], activity.type]
+        : [activity.type];
+    });
 
     const calendarDays = [];
-    let dateIncrement = dateFns.startOfWeek(this.state.currentMonth); // currentMonth set to the 1st
+    let dateCounter = dateFns.startOfWeek(this.state.currentMonth); // currentMonth set to the 1st
 
     for (let i = 0; i < 42; i += 1) {
-      if (dateFns.getDate(dateIncrement) === 1) {
+      const dateCounterString = dateFns.format(dateCounter, 'YYYY-MM-DD');
+
+      if (dateFns.getDate(dateCounter) === 1) {
         calendarDays.push(
           <Day
-            key={dateIncrement}
-            date={dateIncrement}
+            key={dateCounter}
+            date={dateCounter}
             currentMonth={this.state.currentMonth}
             firstOfMonth
+            activities={activityMap[dateCounterString] ? activityMap[dateCounterString] : null}
           />,
         );
       } else {
         calendarDays.push(
           <Day
-            key={dateIncrement}
-            date={dateIncrement}
+            key={dateCounter}
+            date={dateCounter}
             currentMonth={this.state.currentMonth}
+            activities={activityMap[dateCounterString] ? activityMap[dateCounterString] : null}
           />,
         );
       }
-      dateIncrement = dateFns.addDays(dateIncrement, 1);
+      dateCounter = dateFns.addDays(dateCounter, 1);
     }
 
     return (

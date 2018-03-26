@@ -5,23 +5,26 @@ import dateFns from 'date-fns';
 import classes from './Day.scss';
 
 const Day = (props) => {
-  if (dateFns.isWeekend(props.date)) {
-    // classes.push('Calendar_Day_Weekend')
+  let activities;
+  if (props.activities) {
+    activities = props.activities.map(activity => (
+      <p key={`${activity}_${Math.random()}`}>{activity}</p>
+    ));
   }
-
   return (
     <div className={classes.content}>
       <p>
         { props.firstOfMonth ? dateFns.format(props.date, 'MMM DD') : dateFns.format(props.date, 'D') }
       </p>
+      {activities}
     </div>
   );
 };
 
 Day.propTypes = {
-  currentMonth: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  firstOfMonth: PropTypes.bool.isRequired,
+  currentMonth: PropTypes.shape({}).isRequired,
+  date: PropTypes.shape({}).isRequired,
+  firstOfMonth: PropTypes.bool,
 };
 
 Day.defaultProps = {
