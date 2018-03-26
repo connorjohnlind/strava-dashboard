@@ -11,7 +11,9 @@ const Day = (props) => {
 
   return (
     <div className={classes.content}>
-      { props.firstOfMonth ? dateFns.format(props.date, 'MMM DD') : dateFns.format(props.date, 'D') }
+      <p>
+        { props.firstOfMonth ? dateFns.format(props.date, 'MMM DD') : dateFns.format(props.date, 'D') }
+      </p>
     </div>
   );
 };

@@ -53,17 +53,15 @@ class Calendar extends Component {
 
     return (
       <div className={classes.card} >
-        <div className={classes.calendar}>
-          <CalendarHeader
-            currentMonth={this.state.currentMonth}
-            next={this.next}
-            today={this.today}
-            prev={this.prev}
-          />
-          <WeekHeader />
-          <div className={classes.days}>
-            {calendarDays}
-          </div>
+        <CalendarHeader
+          currentMonth={this.state.currentMonth}
+          next={this.next}
+          today={this.today}
+          prev={this.prev}
+        />
+        <WeekHeader />
+        <div className={classes.days}>
+          {calendarDays}
         </div>
       </div>
     );

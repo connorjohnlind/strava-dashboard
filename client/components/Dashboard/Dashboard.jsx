@@ -9,6 +9,7 @@ import Summary from './Summary/Summary';
 import Totals from './Totals/Totals';
 import Login from '../Login/Login';
 import Spinner from '../UI/Spinner/Spinner';
+import Footer from './Footer/Footer';
 import * as actions from '../../store/actions';
 
 class Dashboard extends Component {
@@ -37,6 +38,7 @@ class Dashboard extends Component {
           <Summary athlete={this.props.auth.athlete} totals={this.props.auth.totals} />
           <Totals />
           <Calendar activities={this.props.auth.activities} />
+          <Footer />
         </Aux>
       );
     }

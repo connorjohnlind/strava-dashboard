@@ -7,14 +7,10 @@
   @extend .flexcol;
   margin-top: 40px;
   padding-top: 0;
-  height: 400px;
-}
-
-.calendar {
-  @extend .flexcol;
   width: 310px;
-  height: 310px;
-  margin-top: 20px;
+  height: 100%;
+  padding: 2%;
+  margin-bottom: 50px;
 }
 
 .days {
@@ -23,7 +19,7 @@
   grid-template-rows: repeat(6, 1fr);
   height: 100%;
   width: 100%;
-  border: 1px dashed $strava-orange;
+  border: 1px solid lightgrey;
 }
 
 @media screen and (min-width: $ipad-breakpoint) {
@@ -31,10 +27,12 @@
     min-width: 730px;
     max-width: 900px;
     width: 90%;
+    height: 100%;
   }
   .calendar {
     min-width: 730px;
     max-width: 900px;
     width: 97%;
+    height: 100%;
   }
 }

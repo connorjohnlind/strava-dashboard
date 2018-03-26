@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { hot } from 'react-hot-loader';
 
 import Layout from './components/Layout/Layout';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -16,4 +17,4 @@ const App = () => (
   </Layout>
 );
 
-export default App;
+export default hot(module)(App);
