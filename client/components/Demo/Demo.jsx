@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Aux from '../hoc/Aux';
-// import Calendar from '../Dashboard/Calendar/Calendar';
+import Calendar from '../Dashboard/Calendar/Calendar';
 import Summary from '../Dashboard/Summary/Summary';
 import Totals from '../Dashboard/Totals/Totals';
 import Spinner from '../UI/Spinner/Spinner';
+import Footer from '../Dashboard/Footer/Footer';
 import * as actions from '../../store/actions';
 
 class Demo extends Component {
@@ -24,7 +25,8 @@ class Demo extends Component {
         <Aux>
           <Summary athlete={this.props.demo.athlete} totals={this.props.demo.totals} />
           <Totals />
-          {/* <Calendar activities={this.props.demo.activities} /> */}
+          <Calendar activities={this.props.demo.activities} />
+          <Footer />
         </Aux>
       );
     }
