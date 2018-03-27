@@ -6,33 +6,30 @@ import Aux from '../../../hoc/Aux';
 import classes from './Day.scss';
 
 const Day = (props) => {
+  let dayClasses;
   let content;
+
   if (props.activities) {
     const activities = props.activities.filter(activity => (
-      activity === 'Run' || 'Ride' || 'Swim' || 'WeightTraining'
+      activity === 'Run' || 'Ride' || 'Swim' || 'WeightTraining' // only support these four types
     ));
-    const firstActivity = activities[0];
+    const firstActivity = activities[0]; // only support one at a time
     content = (
-      <Aux>
-        <p className={classes.hideDay}>
-          { props.firstOfMonth ? dateFns.format(props.date, 'MMM DD') : dateFns.format(props.date, 'D') }
-        </p>
-        <div className={classes[firstActivity]} />
-      </Aux>
+      <div className={classes[firstActivity]} />
     );
-  } else {
-    content = (
-      <p className={classes}>
-        { props.firstOfMonth ? dateFns.format(props.date, 'MMM DD') : dateFns.format(props.date, 'D') }
-      </p>
-    );
-  };
+  }
+
+  if (props.today) dayClasses = classes.today;
+  if (props.activities) dayClasses = [dayClasses, classes.hideDay].join(' ');
 
   return (
     <div className={classes.content}>
+      <p className={dayClasses}>
+        { props.firstOfMonth ? dateFns.format(props.date, 'MMM DD') : dateFns.format(props.date, 'D') }
+      </p>
       {content}
     </div>
-  )
+  );
 };
 
 Day.propTypes = {

@@ -38,26 +38,16 @@ class Calendar extends Component {
     for (let i = 0; i < 42; i += 1) {
       const dateCounterString = dateFns.format(dateCounter, 'YYYY-MM-DD');
 
-      if (dateFns.getDate(dateCounter) === 1) {
-        calendarDays.push(
-          <Day
-            key={dateCounter}
-            date={dateCounter}
-            currentMonth={this.state.currentMonth}
-            firstOfMonth
-            activities={activityMap[dateCounterString] ? activityMap[dateCounterString] : null}
-          />,
-        );
-      } else {
-        calendarDays.push(
-          <Day
-            key={dateCounter}
-            date={dateCounter}
-            currentMonth={this.state.currentMonth}
-            activities={activityMap[dateCounterString] ? activityMap[dateCounterString] : null}
-          />,
-        );
-      }
+      calendarDays.push(
+        <Day
+          key={dateCounter}
+          date={dateCounter}
+          currentMonth={this.state.currentMonth}
+          firstOfMonth={dateFns.getDate(dateCounter) === 1 ? true : false}
+          today={dateFns.format(dateCounter, 'YYYY-MM-DD') === dateFns.format(new Date(), 'YYYY-MM-DD') ? true : false}
+          activities={activityMap[dateCounterString] ? activityMap[dateCounterString] : null}
+        />,
+      );
       dateCounter = dateFns.addDays(dateCounter, 1);
     }
 
