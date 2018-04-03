@@ -72,12 +72,11 @@ An animated and interactive analytics dashboard, made from a combination of Redu
 
 ```javascript
 // client/components/Dashboard/Totals/Charts/PieChart
-// Note: no need to read every detail, just scan the comments at right :)
 
-import { sports } from '../../Filters/filterTypes';                    // config file for iterations
+import { sports } from '../../Filters/filterTypes';                // config file for iterations
 
 class PieChart extends Component {
-  state = {                                                 // local UI state to handle hover states
+  state = {                                                        // local UI state to handle hover
     value: null,
     units: null,
   }
@@ -85,7 +84,7 @@ class PieChart extends Component {
   // build an object with key=sport and value=activity_count from Redux
   getCounts() {
     const { range, auth, demo } = this.props;
-    const mode = !demo.demoLoading ? demo : auth;  // check if in demo mode
+    const mode = !demo.demoLoading ? demo : auth;                  // check if in demo mode
     const activeCounts = {};
     sports.forEach((sport) => {
       const { key } = sport;
@@ -126,7 +125,7 @@ class PieChart extends Component {
           mouseOut={this.handleMouseOut}
           cx={21}
           cy={21}
-          r={15.91549430918954}    // circumference = 100 = 2*PI*r
+          r={15.91549430918954}                               // circumference = 100 = 2*PI*r
         />
         <g className={classes.chartText}>
           <text x="50%" y="50%" className={classes.chartNumber}>
@@ -166,7 +165,8 @@ export default connect(
 A script is run on the backend to provide dummy data for visitors without a Strava account.
 
 ``` javascript
-require('../config/config');                // sets environment variables for dev or prod
+// server/scripts/demo.js
+require('../config/config');                // sets environment variables for development
 
 const url = process.env.MONGODB_URI;
 const dbName = 'stravadash-demo';
@@ -196,6 +196,8 @@ MongoClient.connect(url, (err, client) => {
 #### [Custom Webpack Config](https://github.com/connorjohnlind/strava-dashboard/blob/master/webpack.config.prod.js)
 Full-stack Webpack 4 configurations for development and production
 
+
+
 ## Notes on Development
 
 #### Front-end
@@ -215,3 +217,7 @@ Full-stack Webpack 4 configurations for development and production
 #### Front-end
 
 * The `Demo` component hierarchy is a bit inconsistent in the way that Strava data is passed to components. For the `Calendar`, the demo data is passed in as a prop (`activities`), and the `Calendar` handles all component renders accordingly. The `Totals` component, however, is connected to Redux at nearly every step in the hierarchy (`Totals`, `PieChart`, `Graph`). The reason this decision was made was because of the difficulty with utilizing the string-based data structure of getStats (mentioned above), which made passing in data as props a bit bloated. In my opinion, an optimal refactor would include rewriting the getStats response to a more convenient data structure in Redux, and passing along the key pieces of data (maximums, distance, and counts by sport and range) in as props throughout the `Totals` component hierarchy.
+
+#### Back-end
+
+* I would like to add goal tracking to this app. At present, I am working on other back-end related projects for my portfolio, but plan on returning here soon.
