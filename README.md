@@ -8,10 +8,10 @@ A fitness dashboard built on the [Strava v3](https://developers.strava.com/docs/
 
 #### [Server-side Authentication](https://github.com/connorjohnlind/strava-dashboard/blob/master/server/routes/authRoutes.js)
 
-The Strava accessToken is exchanged on the back-end Express server, returned to the client, and stored in localStorage for future requests in order to keep the `STRAVA_CLIENT_SECRET` secure.
+The Strava accessToken is exchanged on the back-end Express server, returned to the client, and stored in localStorage for future requests (in order to keep the `STRAVA_CLIENT_SECRET` secure).
 
 ``` javascript
-// authRoutes.js
+// server/routes/authRoutes.js
 
 const axios = require('axios');
 
@@ -71,13 +71,13 @@ export const authRenew = token => (async (dispatch) => {
 An animated and interactive analytics dashboard, made from a combination of Redux and Local UI State Components
 
 ```javascript
-
+// client/components/Dashboard/Totals/Charts/PieChart
 // Note: no need to read every detail, just scan the comments at right :)
 
-import { sports } from '../../Filters/filterTypes';    // config file for iterations
+import { sports } from '../../Filters/filterTypes';                    // config file for iterations
 
 class PieChart extends Component {
-  state = {                                            // local UI state to handle hover states
+  state = {                                                 // local UI state to handle hover states
     value: null,
     units: null,
   }
@@ -90,9 +90,9 @@ class PieChart extends Component {
     sports.forEach((sport) => {
       const { key } = sport;
       if (this.props.filters[key]) {
-        const { count } = mode.totals[`${range}_${key}_totals`];    // template strings, due to the Stava API response
-        activeCounts[key] = count;                                  // (read more in "Notes on Development")
-      }
+        const { count } = mode.totals[`${range}_${key}_totals`];   // template strings, due to the
+        activeCounts[key] = count;                                 // Strava API response...read
+      }                                                            // more in "Notes on Development"
     });
     return activeCounts;
   }
@@ -101,7 +101,7 @@ class PieChart extends Component {
   handleMouseIn = (value, units) => {
     this.setState({
       value,
-      units: `${units.substring(0, 1).toUpperCase()}${units.substring(1)}s`,   // capitalize the label
+      units: `${units.substring(0, 1).toUpperCase()}${units.substring(1)}s`, // capitalize the label
     });
   }
   handleMouseOut = () => {
@@ -119,7 +119,7 @@ class PieChart extends Component {
 
   renderPiechart() {
     return (
-      <svg viewBox="0 0 42 42" className={classes.piechart}>            // took the svg approach for piecharts
+      <svg viewBox="0 0 42 42" className={classes.piechart}>  // took the svg approach for piecharts
         <Circles
           data={this.getCounts()}
           mouseIn={this.handleMouseIn}
@@ -130,8 +130,8 @@ class PieChart extends Component {
         />
         <g className={classes.chartText}>
           <text x="50%" y="50%" className={classes.chartNumber}>
-            {this.state.value ? this.state.value : this.totalCount()}   // show the hover value or the total count
-          </text>
+            {this.state.value ? this.state.value : this.totalCount()}   // show the hover value
+          </text>                                                       // or the total count
           <text x="50%" y="50%" className={classes.chartLabel}>
             {this.state.units ? this.state.units : 'Activities'}
           </text>
@@ -142,7 +142,7 @@ class PieChart extends Component {
   render() {
     return (
       <div className={classes.content}>
-        {this.totalCount() > 0 ? this.renderPiechart() : null}           // disable if all sports are unclicked
+        {this.totalCount() > 0 ? this.renderPiechart() : null}   // hide if all sports are unclicked
       </div>
     );
   }
@@ -150,7 +150,7 @@ class PieChart extends Component {
 
 PieChart.propTypes = {
   auth: PropTypes.shape({}).isRequired,      // Redux source of truth
-  demo: PropTypes.shape({}).isRequired,      // compatibility with demo mode, note on this at bottom of Readme
+  demo: PropTypes.shape({}).isRequired,      // compatibility with demo mode, note on this at bottom
   filters: PropTypes.shape({}).isRequired,   // filters from the menu of buttons, stored in Redux
   range: PropTypes.string.isRequired,        // passed down from Dashboard parent component
 };
@@ -166,9 +166,9 @@ export default connect(
 A script is run on the backend to provide dummy data for visitors without a Strava account.
 
 ``` javascript
-require('../config/config');
+require('../config/config');                // sets environment variables for dev or prod
 
-const url = process.env.MONGODB_URI; // for dev or prod
+const url = process.env.MONGODB_URI;
 const dbName = 'stravadash-demo';
 
 const dummy = require('./demo.data');
@@ -188,7 +188,7 @@ const insertDocument = (db, callback) => {
 };
 
 MongoClient.connect(url, (err, client) => {
-// ...
+  ...
 });
 
 ```
