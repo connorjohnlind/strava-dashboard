@@ -192,6 +192,21 @@ MongoClient.connect(url, (err, client) => {
 });
 
 ```
+```javascript
+// client/store/actions/demo.js
+
+...
+
+export const demoInit = () => (async (dispatch) => {
+  try {
+    let dummy = await axios.get('/api/demo/');
+    dummy = dummy.data.data;
+    dispatch(demoSuccess(dummy.accessToken, dummy.athlete, dummy.totals, dummy.activities));
+  } catch (error) {
+    dispatch(demoFail(error.response));
+  }
+});
+```
 
 #### [Custom Webpack Config](https://github.com/connorjohnlind/strava-dashboard/blob/master/webpack.config.prod.js)
 Full-stack Webpack 4 configurations for development and production
@@ -202,7 +217,11 @@ Full-stack Webpack 4 configurations for development and production
 
 #### Front-end
 
-* The data structure of the [getStats](https://developers.strava.com/docs/reference/#api-Athletes-getStats) API response (i.e. `"ytd_ride_totals"`, `"all_ride_totals"`, `"recent_ride_totals"`) made a huge impact on the way data was passed around the app. Early on in development, I decided to leave the Strava API data 'as is' in Redux, and build more convenient data objects in containers (i.e. the `getChartMaximums()` method in `Totals`). If the getStats data would have been needed in other components, I might have decided to parse the data into a more desirable format in the action creator, building objects based on range (such as `recent.ride.count`) instead of dealing with template strings in `recent_ride_totals.count`).
+* The data structure of the [`getStats`](https://developers.strava.com/docs/reference/#api-Athletes-getStats) API response (i.e. `ytd_ride_totals.count`, `all_ride_totals.count`, `recent_ride_totals.count`) made an impact on the way data was passed around the app. In my opinion, this data is not structured in a developer-friendly manner. Quite often, I found myself iterating through template literals such as `${range}_${sport}_totals.count`. Ideally, this data would be structured in a more object-oriented way, such as building objects based on range (such as `recent.ride.count`) or sport (such as `ride.recent.count`).
+
+* Early on in development, I decided to leave the Strava API data 'as is' in Redux (stored in `auth.totals`). Thereafter, I found the need to build more convenient data objects in containers (i.e. in `getCounts()` in `PieChart` and `getCategories()` in `Graph`) based on the inconvenient data-structure provided by Strava. An optimal refactor would include rewriting the `getStats` response to a more convenient data structure in Redux action creators, to be used throughout the app. With a new format in Redux, I can envision using less stateful components and eliminating the "mode checker" (`const mode = !demo.demoLoading ? demo : auth`) altogether.
+
+* It's worth noting that the Calendar does not have the above concern, as it receives data from `auth.activites`, in which the Strava API simply returns an array of activities.
 
 * Utilizing a [config file](https://github.com/connorjohnlind/strava-dashboard/blob/master/client/components/Dashboard/Totals/Filters/filterTypes.js) for the sports, ranges, and their labels made for a lot more DRY iteration throughout the app. This might have been overkill, considering it's very unlikely that running, biking, swimming will ever change in the context of a triathlete-focused app. However I found it to be useful exercise to allow all of my components to adjust to this configuration (i.e. renaming 'Month' to '4 weeks' as a filter). There are just a few instances where I opted to hard code based on sport, such as the color coding of run/ride/swim in SCSS files.
 
@@ -216,7 +235,7 @@ Full-stack Webpack 4 configurations for development and production
 
 #### Front-end
 
-* The `Demo` component hierarchy is a bit inconsistent in the way that Strava data is passed to components. For the `Calendar`, the demo data is passed in as a prop (`activities`), and the `Calendar` handles all component renders accordingly. The `Totals` component, however, is connected to Redux at nearly every step in the hierarchy (`Totals`, `PieChart`, `Graph`). The reason this decision was made was because of the difficulty with utilizing the string-based data structure of getStats (mentioned above), which made passing in data as props a bit bloated. In my opinion, an optimal refactor would include rewriting the getStats response to a more convenient data structure in Redux, and passing along the key pieces of data (maximums, distance, and counts by sport and range) in as props throughout the `Totals` component hierarchy.
+* An optimal refactor would include rewriting the getStats response to a more convenient data structure in Redux to be used throughout the app, and passing along the key pieces of data (maximums, distance, and counts by sport and range) in as props throughout the `Totals` component hierarchy.
 
 #### Back-end
 

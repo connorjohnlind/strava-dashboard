@@ -15,12 +15,11 @@ export const demoFail = error => ({
   error,
 });
 
-// handles the oAuth token exchange on the backend
 export const demoInit = () => (async (dispatch) => {
   try {
-    let dummy = await axios.get('/api/demo/');
-    dummy = dummy.data.data;
-    dispatch(demoSuccess(dummy.accessToken, dummy.athlete, dummy.totals, dummy.activities));
+    let demo = await axios.get('/api/demo/');
+    demo = demo.data.data;
+    dispatch(demoSuccess(demo.accessToken, demo.athlete, demo.totals, demo.activities));
   } catch (error) {
     dispatch(demoFail(error.response));
   }
