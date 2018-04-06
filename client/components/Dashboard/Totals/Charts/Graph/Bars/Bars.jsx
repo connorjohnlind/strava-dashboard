@@ -12,7 +12,8 @@ const Bars = (props) => {
   const bars = entries.map((entry) => {
     const key = entry[0];
     const barData = entry[1];
-    const percent = ((barData / props.max) * 100).toFixed();
+    let percent = ((barData / props.max) * 100).toFixed();
+    if (+percent === 0) percent = '1';
     return (
       <Bar
         key={`${key}_bar_${Math.random()}`}

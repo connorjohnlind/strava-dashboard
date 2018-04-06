@@ -13,7 +13,7 @@ The Strava accessToken is exchanged on the back-end Express server, returned to 
 ``` javascript
 // server/routes/authRoutes.js
 
-const axios = require('axios');
+...
 
 module.exports = (app) => {
   app.get('/auth/strava', async (req, res) => {
@@ -88,10 +88,10 @@ class PieChart extends Component {
     const activeCounts = {};
     sports.forEach((sport) => {
       const { key } = sport;
-      if (this.props.filters[key]) {
-        const { count } = mode.totals[`${range}_${key}_totals`];   // template strings, due to the
-        activeCounts[key] = count;                                 // Strava API response...read
-      }                                                            // more in "Notes on Development"
+      if (this.props.filters[key]) {   
+        const { count } = mode.totals[`${range}_${key}_totals`];  // template literals, due to the
+        activeCounts[key] = count;                                // Strava API response...read
+      }                                                           // more in "Notes on Development"
     });
     return activeCounts;
   }
@@ -148,7 +148,7 @@ class PieChart extends Component {
 }
 
 PieChart.propTypes = {
-  auth: PropTypes.shape({}).isRequired,      // Redux source of truth
+  auth: PropTypes.shape({}).isRequired,      // source of truth
   demo: PropTypes.shape({}).isRequired,      // compatibility with demo mode, note on this at bottom
   filters: PropTypes.shape({}).isRequired,   // filters from the menu of buttons, stored in Redux
   range: PropTypes.string.isRequired,        // passed down from Dashboard parent component
@@ -168,8 +168,7 @@ A script is run on the backend to provide dummy data for visitors without a Stra
 // server/scripts/demo.js
 require('../config/config');                // sets environment variables for development
 
-const url = process.env.MONGODB_URI;
-const dbName = 'stravadash-demo';
+...
 
 const dummy = require('./demo.data');
 
@@ -187,10 +186,32 @@ const insertDocument = (db, callback) => {
   });
 };
 
-MongoClient.connect(url, (err, client) => {
-  ...
-});
+...
 
+```
+```javascript
+// server/routes/demoRoutes.js
+
+...
+
+const findDocuments = (db, callback) => {
+  const collection = db.collection('demoData');
+  collection.find({}).toArray((err, docs) => {
+    callback(docs[0].data);
+  });
+};
+
+module.exports = (app) => {
+  app.get('/api/demo/', (req, res) => {
+    MongoClient.connect(url, (err, client) => {
+      const db = client.db(dbName);
+      findDocuments(db, (data) => {
+        res.send({ data });
+        client.close();
+      });
+    });
+  });
+};
 ```
 ```javascript
 // client/store/actions/demo.js
@@ -219,7 +240,7 @@ Full-stack Webpack 4 configurations for development and production
 
 * The data structure of the [`getStats`](https://developers.strava.com/docs/reference/#api-Athletes-getStats) API response (i.e. `ytd_ride_totals.count`, `all_ride_totals.count`, `recent_ride_totals.count`) made an impact on the way data was passed around the app. In my opinion, this data is not structured in a developer-friendly manner. Quite often, I found myself iterating through template literals such as `${range}_${sport}_totals.count`. Ideally, this data would be structured in a more object-oriented way, such as building objects based on range (such as `recent.ride.count`) or sport (such as `ride.recent.count`).
 
-* Early on in development, I decided to leave the Strava API data 'as is' in Redux (stored in `auth.totals`). Thereafter, I found the need to build more convenient data objects in containers (i.e. in `getCounts()` in `PieChart` and `getCategories()` in `Graph`) based on the inconvenient data-structure provided by Strava. An optimal refactor would include rewriting the `getStats` response to a more convenient data structure in Redux action creators, to be used throughout the app. With a new format in Redux, I can envision using less stateful components and eliminating the "mode checker" (`const mode = !demo.demoLoading ? demo : auth`) altogether.
+* Early on in development, I decided to leave the Strava API data 'as is' in Redux (stored in `auth.totals`). Thereafter, I found the need to build refactored data objects in containers (i.e. in `getCounts()` in `PieChart` and `getCategories()` in `Graph`) based on this inconvenient data-structure provided by Strava. An optimal refactor would include rewriting the `getStats` response to a more convenient data structure in Redux action creators, to be used throughout the app. With a new format for `auth.totals` in Redux, I can envision using fewer stateful components and eliminating the "mode checker" (`const mode = !demo.demoLoading ? demo : auth`) in child components altogether.
 
 * It's worth noting that the Calendar does not have the above concern, as it receives data from `auth.activites`, in which the Strava API simply returns an array of activities.
 
@@ -235,7 +256,7 @@ Full-stack Webpack 4 configurations for development and production
 
 #### Front-end
 
-* An optimal refactor would include rewriting the getStats response to a more convenient data structure in Redux to be used throughout the app, and passing along the key pieces of data (maximums, distance, and counts by sport and range) in as props throughout the `Totals` component hierarchy.
+* An optimal refactor would include rewriting the `getStats` response to a more convenient data structure in Redux, as noted above.
 
 #### Back-end
 
